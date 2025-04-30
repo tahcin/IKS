@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Knowledge Systems Quiz</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- UI Styles --- */
+        :root {
+            --primary-color: #4f46e5; /* Indigo */
+            --primary-hover: #4338ca;
+            --secondary-color: #f3f4f6; /* Light Gray */
+            --card-bg: #ffffff;
+            --text-color: #1f2937; /* Dark Gray */
+            --subtle-text: #6b7280; /* Medium Gray */
+            --correct-color: #10b981; /* Emerald */
+            --correct-bg: #ecfdf5;
+            --incorrect-color: #ef4444; /* Red */
+            --incorrect-bg: #fef2f2;
+            --border-color: #e5e7eb; /* Light Gray Border */
+            --disabled-color: #9ca3af; /* Gray */
+            --font-family: 'Poppins', sans-serif;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --transition-speed: 0.2s;
+            /* Result colors */
+            --result-correct-border: #059669; /* Darker Emerald */
+            --result-incorrect-border: #dc2626; /* Darker Red */
+            --result-reveal-bg: #d1fae5; /* Lighter Emerald */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            opacity: 0;
+            animation: bodyFadeIn 0.5s ease forwards;
+        }
+        @keyframes bodyFadeIn { to { opacity: 1; } }
+
+        /* Skip Link */
+        .skip-link { /* ... (styles remain the same) ... */
+            position: absolute; top: -50px; left: 0; background: var(--primary-color); color: white;
+            padding: 10px 15px; z-index: 1000; transition: top var(--transition-speed) ease-in-out;
+            border-bottom-right-radius: 8px;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Main Container */
+        #quiz-container { /* ... (styles remain the same) ... */
+            background-color: var(--card-bg); border-radius: 16px; box-shadow: var(--shadow);
+            padding: 35px 45px; width: 100%; max-width: 850px; margin-top: 20px;
+            opacity: 0; transform: translateY(20px); animation: fadeInSlideUp 0.5s ease 0.2s forwards;
+        }
+        @keyframes fadeInSlideUp { to { opacity: 1; transform: translateY(0); } }
+
+        h1 { /* ... (styles remain the same) ... */
+             text-align: center; color: var(--primary-color); margin-bottom: 15px;
+             font-weight: 700; font-size: 2em;
+        }
+        #quiz-subtitle { /* ... (styles remain the same) ... */
+             text-align: center; color: var(--subtle-text); margin-bottom: 30px; font-weight: 500;
+        }
+
+        /* Quiz Selection Area */
+         #quiz-selection { /* ... (styles remain the same, including .hidden state) ... */
+             text-align: center; margin-bottom: 30px; padding-bottom: 20px;
+             border-bottom: 1px solid var(--border-color); transition: opacity 0.3s ease, height 0.3s ease;
+             overflow: hidden;
+         }
+         #quiz-selection.hidden { /* ... */
+             opacity: 0; height: 0; margin-bottom: 0; padding-bottom: 0; border-bottom: none;
+          }
+         #quiz-selection h2 { /* ... */
+             color: var(--text-color); font-weight: 600; margin-bottom: 15px; font-size: 1.2em;
+         }
+         .select-quiz-btn { /* ... (styles remain the same, including :hover and .active) ... */
+             padding: 10px 20px; background-color: transparent; color: var(--primary-color);
+             border: 2px solid var(--primary-color); border-radius: 8px; cursor: pointer;
+             font-size: 1em; font-weight: 600; transition: all var(--transition-speed) ease; margin: 5px 10px;
+         }
+          .select-quiz-btn:hover:not(.active) { background-color: #eef2ff; transform: translateY(-2px); }
+          .select-quiz-btn.active { background-color: var(--primary-color); color: white; box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3); transform: translateY(0); }
+
+        /* Start Button Area */
+        #start-quiz-area { /* ... (styles remain the same, including .hidden state) ... */
+             text-align: center; margin: 30px 0; transition: opacity 0.3s ease, height 0.3s ease;
+             overflow: hidden; height: auto;
+        }
+         #start-quiz-area.hidden { opacity: 0; height: 0; margin: 0; }
+        #start-quiz-btn { /* ... (styles remain the same, including :hover and :disabled) ... */
+             padding: 12px 30px; background-color: var(--correct-color); color: white; border: none;
+             border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: 600;
+             transition: all var(--transition-speed) ease; box-shadow: var(--shadow);
+        }
+         #start-quiz-btn i { margin-right: 8px; }
+         #start-quiz-btn:hover:not(:disabled) { background-color: #059669; transform: translateY(-2px); box-shadow: 0 6px 10px -1px rgb(16 185 129 / 0.2), 0 3px 6px -2px rgb(16 185 129 / 0.2); }
+         #start-quiz-btn:disabled { background-color: var(--disabled-color); cursor: not-allowed; opacity: 0.7; box-shadow: none; transform: none; }
+
+        /* Timer */
+        #timer-container { /* ... (styles remain the same) ... */
+             text-align: center; margin-bottom: 30px; font-size: 1.2em; font-weight: 600;
+             color: var(--text-color); padding: 10px; background-color: var(--secondary-color);
+             border-radius: 8px; transition: opacity 0.3s ease;
+        }
+         #timer-container i { margin-right: 8px; color: var(--primary-color); }
+
+        /* General utility class */
+        .hidden { display: none !important; }
+
+        /* Questions Area */
+        #questions-area { /* ... (styles remain the same, including .hidden and .visible states) ... */
+             opacity: 0; transition: opacity 0.5s ease 0.1s; display: block; height: auto;
+        }
+         #questions-area.hidden { display: none !important; opacity: 0; }
+         #questions-area.visible { opacity: 1; }
+
+        /* Question Block */
+        .question-block { /* ... (styles remain the same) ... */
+             margin-bottom: 40px; padding-bottom: 30px; border-bottom: 1px solid var(--border-color);
+             opacity: 0; transform: translateX(-20px); animation: fadeInSlideLeft 0.4s ease forwards;
+             animation-delay: calc(var(--q-index) * 0.07s);
+        }
+         @keyframes fadeInSlideLeft { to { opacity: 1; transform: translateX(0); } }
+         .question-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+         .question-meta { /* ... */ font-size: 0.8em; color: var(--subtle-text); margin-bottom: 8px; font-weight: 500; }
+         .question-text { /* ... */ font-weight: 600; margin-bottom: 20px; font-size: 1.15em; color: var(--text-color); }
+         .question-text .q-number { /* ... */ color: var(--primary-color); margin-right: 8px; font-weight: 700; }
+
+        /* Options Styling */
+        .options { list-style: none; padding: 0; margin: 0; }
+        .option { margin-bottom: 12px; }
+        .option input[type="radio"] { /* Hides the radio button */
+             opacity: 0; position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0);
+        }
+        .option label {
+            display: block; padding: 14px 18px; border: 2px solid var(--border-color);
+            border-radius: 10px; cursor: pointer; transition: all var(--transition-speed) ease;
+            font-weight: 500; position: relative;
+        }
+        /* Hover state (only when NOT disabled) */
+        .option input[type="radio"]:not(:disabled) + label:hover {
+            border-color: var(--primary-color); background-color: #eef2ff;
+        }
+        /* Checked state (visual cue before submission) */
+        .option input[type="radio"]:checked + label {
+            border-color: var(--primary-color); background-color: #f0f0ff; /* Lighter indigo when checked */
+            font-weight: 600;
+        }
+        /* Disabled state */
+        .option input[type="radio"]:disabled + label {
+            cursor: not-allowed; opacity: 0.7; background-color: var(--secondary-color);
+            border-color: var(--border-color); color: var(--subtle-text); box-shadow: none;
+        }
+
+        /* --- Styling for RESULTS --- */
+        .option label.user-correct {
+            border-color: var(--result-correct-border) !important; /* Important to override hover/checked */
+            background-color: var(--correct-bg) !important;
+            color: var(--text-color) !important; /* Reset text color */
+            font-weight: 600;
+        }
+        .option label.user-incorrect {
+            border-color: var(--result-incorrect-border) !important;
+            background-color: var(--incorrect-bg) !important;
+            color: var(--text-color) !important;
+            font-weight: normal; /* Maybe less emphasis */
+        }
+        .option label.reveal-correct {
+             border-width: 3px; /* Make correct answer border thicker */
+             border-color: var(--result-correct-border) !important;
+             background-color: var(--result-reveal-bg) !important; /* Distinct background for actual answer */
+             font-weight: 700; /* Emphasize correct answer text */
+        }
+         /* Add icon for correct answer highlight */
+         .option label.reveal-correct::after {
+             content: '\f00c'; /* Font Awesome check icon */
+             font-family: 'Font Awesome 6 Free';
+             font-weight: 900;
+             color: var(--result-correct-border);
+             position: absolute;
+             right: 15px;
+             top: 50%;
+             transform: translateY(-50%);
+             font-size: 1.1em;
+         }
+
+        /* Final Submit Button Area */
+        #final-submit-area {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        #final-submit-btn {
+            padding: 12px 35px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all var(--transition-speed) ease;
+            box-shadow: var(--shadow);
+        }
+        #final-submit-btn:hover:not(:disabled) {
+             background-color: var(--primary-hover);
+             transform: translateY(-2px);
+             box-shadow: 0 6px 10px -1px rgb(79 70 229 / 0.2), 0 3px 6px -2px rgb(79 70 229 / 0.2);
+        }
+        #final-submit-btn:disabled {
+            background-color: var(--disabled-color);
+            cursor: not-allowed; opacity: 0.7; box-shadow: none; transform: none;
+        }
+        #final-submit-btn i { margin-right: 8px; }
+
+        /* Results Area */
+        #results-area {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.4s ease;
+        }
+        #results-area.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #results-area h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        #results-area #score {
+             font-size: 1.4em;
+             font-weight: 600;
+             color: var(--text-color);
+        }
+         #results-area #score .score-value {
+             color: var(--primary-color);
+             font-size: 1.2em;
+         }
+
+        /* Responsive Adjustments */
+        @media (max-width: 700px) { /* ... (Keep existing responsive styles) ... */
+             #quiz-container { padding: 25px; }
+             h1 { font-size: 1.6em; }
+             .select-quiz-btn { font-size: 0.9em; padding: 8px 15px; margin: 5px;}
+             #start-quiz-btn { font-size: 1em; padding: 10px 25px;}
+             .question-text { font-size: 1.05em; }
+             .option label { padding: 12px 15px; font-size: 0.95em;}
+             #final-submit-btn { font-size: 1em; padding: 10px 30px; }
+             #results-area #score { font-size: 1.2em; }
+        }
+         @media (max-width: 450px) { /* ... */
+             body { padding: 10px; }
+             #quiz-container { padding: 20px 15px; }
+             h1 { font-size: 1.4em; }
+             #quiz-subtitle { font-size: 0.9em; }
+             #quiz-selection { margin-bottom: 20px; }
+             .select-quiz-btn { display: block; margin: 10px auto; width: 80%; }
+             .question-meta { font-size: 0.75em; }
+             .question-text { font-size: 1em; }
+             .option label { padding: 10px 12px; font-size: 0.9em;}
+             #final-submit-btn { width: 80%; }
+             #results-area { padding: 20px; }
+             #results-area #score { font-size: 1.1em; }
+         }
+    </style>
+</head>
+<body>
+
+    <a href="#quiz-container" class="skip-link">Skip to main content</a>
+
+    <div id="quiz-container">
+        <h1>Indian Knowledge Systems</h1>
+        <p id="quiz-subtitle">Select a quiz to begin</p>
+
+        <!-- Quiz Selection Area -->
+        <div id="quiz-selection">
+            <h2>Choose Your Quiz</h2>
+            <button class="select-quiz-btn" data-quiz-key="test1">Test 1</button>
+            <button class="select-quiz-btn" data-quiz-key="test2">Test 2</button>
+        </div>
+
+        <!-- Start Button Area (Initially Hidden) -->
+        <div id="start-quiz-area" class="hidden">
+             <button id="start-quiz-btn">
+                <i class="fa-solid fa-play"></i> Start <span id="start-quiz-name">Quiz</span>
+            </button>
+        </div>
+
+        <!-- Timer Area (Initially Hidden) -->
+        <div id="timer-container" class="hidden">
+            <i class="fa-regular fa-clock"></i> <span id="timer-text">Time Elapsed:</span> <span id="time">00:00</span>
+        </div>
+
+        <!-- Quiz Form containing Questions Area -->
+        <form id="quiz-form">
+             <div id="questions-area" class="hidden">
+                 <!-- Questions will be dynamically inserted here -->
+             </div>
+
+             <!-- Final Submit Button Area (Initially Hidden) -->
+             <div id="final-submit-area" class="hidden">
+                 <button type="button" id="final-submit-btn">
+                     <i class="fa-solid fa-paper-plane"></i> Submit Quiz
+                 </button>
+             </div>
+        </form>
+
+        <!-- Results Area (Initially Hidden) -->
+         <div id="results-area" class="hidden">
+             <h2>Quiz Results</h2>
+             <p id="score">Your Score: <span class="score-value">0 / 0</span></p>
+         </div>
+
+    </div>
+
+    <script>
+        // --- Combined Quiz Data ---
+        const allQuizData = {
+            test1: [
+                // --- PASTE TEST 1 QUESTIONS HERE ---
+                { id: 1, question: "Which of the following is NOT part of the Caturdaśa-Vidyāsthāna classification of Vedic literature?", options: ["Upavedas", "Vedāṅgas", "Dharma Śāstras", "Kāvyas"], correctAnswer: "Kāvyas", points: 1.0 },
+                { id: 2, question: "What are the three main components of the knowledge triangle as per the Nyāyaśāstra.", options: ["Prameya, Pramāṇa, Prayojana", "Prameya, Pramāṇa, Pramātā", "Pramāṇa, Pramātā, Siddhānta", "Prayojana, Siddhānta, Nirṇaya"], correctAnswer: "Prameya, Pramāṇa, Pramātā", points: 1.0 },
+                { id: 3, question: "Which philosophical school focuses primarily on the nature of self (Jiva)?", options: ["Nyāya", "Vaiśeṣika", "Pūrva Mīmāṁsā", "Advaita Vedānta"], correctAnswer: "Advaita Vedānta", points: 1.0 },
+                { id: 4, question: "Which of the following is the purpose of Nītiśāstra?", options: ["To teach the history of ancient civilizations", "To lead humans towards a beautiful and happy life", "To document scientific knowledge", "To preserve social customs and practices"], correctAnswer: "To lead humans towards a beautiful and happy life", points: 1.0 },
+                { id: 5, question: "What is the ultimate goal of a debate (Vāda) in the Indian tradition?", options: ["To prove one's superiority over the opponent", "To entertain an audience", "To defeat opponents in philosophical battles", "To establish the true nature of knowledge"], correctAnswer: "To establish the true nature of knowledge", points: 1.0 },
+                { id: 6, question: "Which three fundamental entities form the core context of Indian philosophical inquiry?", options: ["Brāhman, Karmā, Dharmā", "Jīva, Jagat, Īśvara", "Upaniṣads, Vedas, Purāṇas", "Yoga, Nyāya, Vaiśeṣika"], correctAnswer: "Jīva, Jagat, Īśvara", points: 1.0 },
+                { id: 7, question: "Which of the following is a key characteristic of the Purāṇas?", options: ["A source of scientific knowledge from ancient times", "A collection of stories, philosophical systems, and societal aspects", "A historical account of medieval India", "An encyclopedic work on ancient India"], correctAnswer: "A collection of stories, philosophical systems, and societal aspects", points: 1.0 },
+                { id: 8, question: "Why is Pāṇini’s Aṣṭādhyāyī considered computationally significant?", options: ["It is written in a programming language", "It requires computer simulations for validation", "It incorporates modern computational methods", "It follows a step-by-step derivation process similar to algorithms"], correctAnswer: "It follows a step-by-step derivation process similar to algorithms", points: 1.0 },
+                { id: 9, question: "What is the primary function of Māheśvara sūtras in Sanskrit grammar?", options: ["To define Sanskrit syntax rules", "To organize Sanskrit phonemes systematically", "To list all possible words in Sanskrit", "To group Sanskrit verbs and nouns into categories"], correctAnswer: "To organize Sanskrit phonemes systematically", points: 1.0 },
+                { id: 10, question: "Which of the following statements about the five characteristics (Pañcalakṣaṇa) of a purāṇas is INCORRECT?", options: ["Sarga refers to the creation of the universe, detailing how the cosmos emerged from nothingness.", "Pratisarga describes the destruction and subsequent recreation of the universe, often referred to as Pralaya.", "Vaṃśa refers to the classification of Puranas based on different geographical regions of India.", "Vaṃśānucarita includes genealogies of kings and sages, tracing their lineages and historical narratives."], correctAnswer: "Vaṃśa refers to the classification of Puranas based on different geographical regions of India.", points: 1.0 },
+                { id: 11, question: "Which among the following is NOT a defining characteristic of Indian philosophical traditions?", options: ["A focus on liberation (moksha) as the ultimate goal.", "The development of rigorous ontological and epistemological frameworks.", "The presence of structured debates to reconcile differences among schools.", "A rejection of all religious influences in philosophical discussions."], correctAnswer: "A rejection of all religious influences in philosophical discussions.", points: 1.0 },
+                { id: 12, question: "What does the Kathopanishad suggest about self-inquiry?", options: ["Looking inward leads to true happiness", "External rituals ensure enlightenment", "Only renunciates can attain self-realization", "Meditation is unnecessary for wisdom"], correctAnswer: "Looking inward leads to true happiness", points: 1.0 },
+                { id: 13, question: "What is the core purpose of Itihāsas as opposed to Purāṇas?", options: ["Itihāsas focus on the four Purusharthas, while Purāṇas are encyclopedic in nature", "Itihāsas provide mythical stories, whereas Purāṇas are only historical", "Itihāsas discuss social order, whereas Purāṇas focus on individual duty", "Purāṇas present moral dilemmas, while Itihāsas provide clear answers"], correctAnswer: "Itihāsas focus on the four Purusharthas, while Purāṇas are encyclopedic in nature", points: 1.0 },
+                { id: 14, question: "Which Indian philosophy focuses primarily on theistic devotion to Ishvara?", options: ["Mīmāṁsā", "Nyāya", "Dvaita Vedānta", "Cārvāka"], correctAnswer: "Dvaita Vedānta", points: 1.0 },
+                { id: 15, question: "What is the primary criterion for classifying Indian philosophical systems as astika or nastika?", options: ["Whether or not they believe in God.", "Their acceptance or rejection of the authority of the Vedas.", "Their views on karma and reincarnation.", "Their origin within or outside of India."], correctAnswer: "Their acceptance or rejection of the authority of the Vedas.", points: 1.0 },
+                { id: 16, question: "What does the term ‘sutra’ refer to in Panini’s Aṣṭādhyāyī?", options: ["A short descriptive sentence", "A set of poetic verses", "A concise aphoristic rule", "A religious hymn"], correctAnswer: "A concise aphoristic rule", points: 1.0 },
+                { id: 17, question: "Which of the following is true about Vyākaraṇa as a Vedāṅgas ?", options: ["It deals with the meaning of words in the Vedic texts.", "It provides the grammatical structure necessary for understanding Vedic Sanskrit.", "It outlines the rituals required in Vedic practices.", "It ensures the proper timing of Vedic rituals."], correctAnswer: "It provides the grammatical structure necessary for understanding Vedic Sanskrit.", points: 1.0 },
+                { id: 18, question: "In a modern research context, how can the \"Nirnaya\" phase be understood?", options: ["As the process of revising the hypothesis based on criticism.", "As the stage where the accepted conclusion is stored in a popular repository.", "As the final argument where the researcher admits the hypothesis was incorrect.", "As the phase where alternative hypotheses are tested."], correctAnswer: "As the phase where alternative hypotheses are tested.", points: 1.0 },
+                { id: 19, question: "Which of the following best describes the unique characteristic of Indian Knowledge Systems?", options: ["They focused only on religious and spiritual knowledge.", "They are segmented into separate books for each discipline.", "They interwoven various disciplines such as philosophy, religion, mathematics, and astronomy within a single text.", "They were purely mathematical and abstract in nature."], correctAnswer: "They interwoven various disciplines such as philosophy, religion, mathematics, and astronomy within a single text.", points: 1.0 },
+                { id: 20, question: "A modern legal system often struggles with ethical vs. legal dilemmas. Which of the following texts would provide better insight into handling such dilemmas?", options: ["Rāmāyaṇa, as it presents clear moral choices", "Mahābhārata, as it explores complex ethical situations", "Purāṇa, as they offer a vast collection of stories", "None of the above, as all of them focus on mythology rather than ethics"], correctAnswer: "Mahābhārata, as it explores complex ethical situations", points: 1.0 }
+                 // --- END TEST 1 QUESTIONS ---
+            ],
+            test2: [
+                 // --- PASTE TEST 2 QUESTIONS HERE ---
+                { id: 1, question: "Which text is considered one of the oldest available on Vāstu-śāstra and was written by Maya?", options: ["Mānasāra", "Viśvakarmaprakāśa", "Mayamatam", "Kāśyapaśilpa"], correctAnswer: "Mayamatam", points: 1.0 },
+                { id: 2, question: "What was the major mathematical contribution of Mādhava of Saṅgamāgrāma?", options: ["Quadratic equations", "Pascal’s Triangle", "Infinite series approximations", "Fibonacci series"], correctAnswer: "Infinite series approximations", points: 1.0 },
+                { id: 3, question: "What was the purpose of the reservoirs surrounding Dholāvīrā?", options: ["To provide drinking water for the city", "To enhance the city’s aesthetics", "For military defense", "For recreational activities"], correctAnswer: "To provide drinking water for the city", points: 1.0 },
+                { id: 4, question: "Which ancient Indian text classifies three types of water routes?", options: ["Manusmṛti", "Ṛgveda", "Rāmāyaṇa", "Arthaśāstra"], correctAnswer: "Arthaśāstra", points: 1.0 },
+                { id: 5, question: "Which ancient Indian text describes a method for zinc extraction?", options: ["Caraka Saṁhitā", "Rasa-Ratna-Saṁuccaya", "Arthaśāstra", "Suśruta Saṁhitā"], correctAnswer: "Rasa-Ratna-Saṁuccaya", points: 1.0 },
+                { id: 6, question: "How do archaeological sites like Mohenjo-daro and Dholāvīrā contribute to our understanding of ancient Indian town planning?", options: ["They show evidence of spontaneous and semi-planned settlements", "They prove that ancient Indians did not have knowledge of structured architecture", "They reveal the use of advanced planning techniques and systematic urban design", "They provide insights into religious structures, not so much about town planning"], correctAnswer: "They reveal the use of advanced planning techniques and systematic urban design", points: 1.0 },
+                { id: 7, question: "How does Kauṭilya justify the importance of Anvīkṣikī(Philosophy) in governance?", options: ["It provides moral legitimacy to the king’s rule", "It helps in predicting natural disasters", "It is necessary for understanding military strategies", "It serves as a foundation for logical thinking and argumentation in decision-making"], correctAnswer: "It serves as a foundation for logical thinking and argumentation in decision-making", points: 1.0 },
+                { id: 8, question: "How does Vāstu-śāstra aim to align architecture with natural forces?", options: ["By prescribing the use of only organic materials in construction", "By ensuring structures are aligned with the Pañcamahābhūtāḥ (five elements)", "By mandating east-facing entrances for all buildings", "By dictating the exact interior placement of objects such as vases and furniture"], correctAnswer: "By ensuring structures are aligned with the Pañcamahābhūtāḥ (five elements)", points: 1.0 },
+                { id: 9, question: "Why does Kauṭilya emphasize the study of Trayī (Three Vedas) for a ruler?", options: ["It provides mystical powers to the king", "It ensures the king can perform religious rituals", "It helps establish social order and define responsibilities in practicing Dharma", "It is essential for understanding people"], correctAnswer: "It helps establish social order and define responsibilities in practicing Dharma", points: 1.0 },
+                { id: 10, question: "Which of the following best explains why India’s irrigation and water management systems were advanced?", options: ["They were entirely dependent on rainfall", "They were used only for religious purposes", "They provided sustainable solutions for agriculture", "They were medium-scale systems with moderate impact"], correctAnswer: "They provided sustainable solutions for agriculture", points: 1.0 },
+                { id: 11, question: "How does the Bhūta-Saṃkhyā system help in preserving mathematical information?", options: ["It provides an aesthetic way to encode numerical data into poetry", "It replaces decimal notation with symbols", "It allows large numbers to be written in Roman numerals", "It uses codes and abbreviations"], correctAnswer: "It provides an aesthetic way to encode numerical data into poetry", points: 1.0 },
+                { id: 12, question: "Why is there a danger in mechanically applying Western psychological concepts to the Indian context?", options: ["Western psychology is universal and does not need modification", "Indian psychology does not recognize behavior as a subject of study", "Psychological behavior is influenced by cultural context, which varies between societies", "Western psychology use scientific methods"], correctAnswer: "Psychological behavior is influenced by cultural context, which varies between societies", points: 1.0 },
+                { id: 13, question: "What role does \"Agni\" play in Ayurvedic health assessment?", options: ["It represents the balance of doshas in the body.", "It refers to the body's digestive fire, which is crucial for metabolism and overall health.", "It is another name for the immune system.", "It describes the strength of a person’s sense organs."], correctAnswer: "It refers to the body's digestive fire, which is crucial for metabolism and overall health.", points: 1.0 },
+                { id: 14, question: "How does Indian Psychology approach the understanding of consciousness compared to Western psychology?", options: ["It considers consciousness as a byproduct of the brain", "It acknowledges multiple perspectives, including consciousness as distinct from the physical body", "It considers consciousness to be a sensory perception", "It ignores the concept of consciousness altogether"], correctAnswer: "It acknowledges multiple perspectives, including consciousness as distinct from the physical body", points: 1.0 },
+                { id: 15, question: "A researcher is designing a museum exhibit on ancient Indian metallurgy. Which of the following artifacts would best illustrate the use of alloying technology?", options: ["A stone inscription on temple construction", "An iron pillar from a medieval fort", "A terracotta sculpture from the Indus Valley", "A bronze idol from the Chola period"], correctAnswer: "A bronze idol from the Chola period", points: 1.0 },
+                { id: 16, question: "A person who is highly ambitious, constantly active, and driven by desire is likely dominated by which guna?", options: ["Sattva", "Rajas", "Tamas", "Ananda"], correctAnswer: "Rajas", points: 1.0 },
+                { id: 17, question: "The Pythagorean theorem was known in ancient India through:", options: ["Euclid's works", "Āryabhaṭīya and Ārya-siddhānta", "Baudhāyana Śulbasūtra", "Bhāskara’s Līlāvatī"], correctAnswer: "Baudhāyana Śulbasūtra", points: 1.0 },
+                { id: 18, question: "A historian is researching ancient town planning methods in India. Which text should they refer to for insights on roads, water resources, and village planning?", options: ["Bṛhat-saṁhitā", "Arthaśāstra", "Matsya-purāṇa", "Nāradaśilpaśāstra"], correctAnswer: "Arthaśāstra", points: 1.0 },
+                { id: 19, question: "How did the Indian numeral system influence modern computation?", options: ["It introduced the binary system directly", "It provided the foundation for decimal-based calculations and algorithms", "It eliminated the need for symbols in mathematics", "It was primarily used for religious calculations only"], correctAnswer: "It provided the foundation for decimal-based calculations and algorithms", points: 1.0 },
+                { id: 20, question: "A psychologist wants to study the impact of meditation on well-being using Indian Psychological principles. Which approach should they take?", options: ["Focus only on changes in brain activity", "Measure only emotional responses through surveys", "Integrate objective and subjective experiences, including self-awareness and inner transformation", "Avoid scientific methods and rely solely on scriptures"], correctAnswer: "Integrate objective and subjective experiences, including self-awareness and inner transformation", points: 1.0 }
+                 // --- END TEST 2 QUESTIONS ---
+             ]
+        };
+
+        // --- DOM Elements ---
+        const quizContainer = document.getElementById('quiz-container');
+        const quizSelectionArea = document.getElementById('quiz-selection');
+        const startQuizArea = document.getElementById('start-quiz-area');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        const startQuizName = document.getElementById('start-quiz-name');
+        const quizForm = document.getElementById('quiz-form');
+        const questionsArea = document.getElementById('questions-area');
+        const timerContainer = document.getElementById('timer-container');
+        const timerElement = document.getElementById('time');
+        const finalSubmitArea = document.getElementById('final-submit-area');
+        const finalSubmitBtn = document.getElementById('final-submit-btn');
+        const resultsArea = document.getElementById('results-area');
+        const scoreElement = document.getElementById('score');
+
+
+        // --- State Variables ---
+        let currentQuizKey = null;
+        let currentQuizData = [];
+        let startTime;
+        let timerInterval = null;
+        let quizStarted = false;
+        let quizSubmitted = false; // New flag
+
+        // --- Utility Functions ---
+        function formatTime(seconds) { /* ... (remains the same) ... */
+             const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+             const secs = (seconds % 60).toString().padStart(2, '0');
+             return `${mins}:${secs}`;
+         }
+        function escapeHTML(str) { /* ... (remains the same) ... */
+             if (!str) return '';
+             return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+         }
+
+        // --- Core Functions ---
+        function clearQuizState() {
+            console.log("Clearing quiz state...");
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            timerContainer.classList.add('hidden');
+            questionsArea.innerHTML = '';
+            questionsArea.classList.add('hidden');
+            questionsArea.classList.remove('visible');
+            finalSubmitArea.classList.add('hidden'); // Hide submit button
+            resultsArea.classList.add('hidden'); // Hide results
+             resultsArea.classList.remove('visible');
+            quizStarted = false;
+            quizSubmitted = false; // Reset submitted flag
+            timerElement.textContent = '00:00';
+
+             // Re-enable selection buttons if they were disabled
+             document.querySelectorAll('.select-quiz-btn').forEach(btn => btn.disabled = false);
+             // Ensure selection area is visible
+             quizSelectionArea.classList.remove('hidden');
+        }
+
+        function selectQuiz(quizKey) {
+            if (quizStarted) { console.warn("Cannot change quiz while one is in progress."); return; }
+
+            console.log(`Selecting quiz: ${quizKey}`);
+            currentQuizKey = quizKey;
+            currentQuizData = allQuizData[quizKey] || [];
+
+            document.querySelectorAll('.select-quiz-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-quiz-key') === quizKey);
+            });
+
+            clearQuizState(); // Clear previous state completely
+
+            if (currentQuizData.length > 0) {
+                startQuizName.textContent = `Test ${quizKey.slice(-1)}`;
+                startQuizBtn.disabled = false;
+                startQuizBtn.innerHTML = `<i class="fa-solid fa-play"></i> Start ${startQuizName.textContent}`;
+                startQuizArea.classList.remove('hidden');
+                console.log(`Start quiz area visible for ${quizKey}`);
+            } else {
+                console.warn(`No data found for quiz key: ${quizKey}`);
+                startQuizArea.classList.add('hidden');
+            }
+             quizSelectionArea.classList.remove('hidden');
+        }
+
+        function startTimer() { /* ... (remains the same) ... */
+            startTime = Date.now();
+            timerElement.textContent = formatTime(0);
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (quizStarted && !quizSubmitted) { // Only run if quiz active and not submitted
+                    const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                    timerElement.textContent = formatTime(elapsedTime);
+                } else {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+            }, 1000);
+        }
+
+        function renderQuestions() {
+            console.log("Rendering questions...");
+            questionsArea.innerHTML = ''; // Clear previous
+
+            currentQuizData.forEach((q, index) => {
+                const questionBlock = document.createElement('div');
+                questionBlock.classList.add('question-block');
+                // Store correct answer and points directly on the block for later retrieval
+                questionBlock.setAttribute('data-question-id', q.id);
+                questionBlock.setAttribute('data-correct-answer', q.correctAnswer);
+                questionBlock.setAttribute('data-points', q.points);
+                questionBlock.style.setProperty('--q-index', index);
+
+                let optionsHTML = '<ul class="options">';
+                q.options.forEach((option, i) => {
+                    const optionId = `q${q.id}_option${i}`;
+                    const escapedOption = escapeHTML(option);
+                    // Store the option value on the label as well for easier lookup during results
+                    optionsHTML += `
+                        <li class="option">
+                            <input type="radio" id="${optionId}" name="q${q.id}" value="${escapedOption}" required>
+                            <label for="${optionId}" data-option-value="${escapedOption}">${escapedOption}</label>
+                        </li>
+                    `;
+                });
+                optionsHTML += '</ul>';
+
+                 const escapedQuestion = escapeHTML(q.question);
+
+                 // REMOVED action-area, feedback, correct-answer, attempt-info divs
+                questionBlock.innerHTML = `
+                    <p class="question-meta">Multiple Choice | ${q.points.toFixed(1)} point${q.points !== 1 ? 's' : ''}</p>
+                    <p class="question-text"><span class="q-number">${index + 1}.</span> ${escapedQuestion}</p>
+                    ${optionsHTML}
+                `;
+                questionsArea.appendChild(questionBlock);
+            });
+
+            questionsArea.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                console.log("Applying 'visible' class to questions area.");
+                questionsArea.classList.add('visible');
+            });
+        }
+
+        // --- NEW: Handles final submission ---
+        function handleSubmitQuiz() {
+             if (!quizStarted || quizSubmitted) {
+                 console.warn("Quiz not started or already submitted.");
+                 return;
+             }
+             console.log("Submitting quiz...");
+             quizSubmitted = true; // Mark as submitted
+
+             // Stop timer
+             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+
+             // Disable submit button
+             finalSubmitBtn.disabled = true;
+             finalSubmitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Submitted';
+             finalSubmitBtn.style.opacity = 0.7;
+
+             let totalScore = 0;
+             let maxScore = 0;
+
+             // Disable all radio buttons and evaluate answers
+             const questionBlocks = questionsArea.querySelectorAll('.question-block');
+             questionBlocks.forEach(block => {
+                 const questionId = block.getAttribute('data-question-id');
+                 const correctAnswer = block.getAttribute('data-correct-answer');
+                 const points = parseFloat(block.getAttribute('data-points') || 0);
+                 maxScore += points; // Add points to max score
+
+                 const radioButtons = block.querySelectorAll('input[type="radio"]');
+                 radioButtons.forEach(radio => radio.disabled = true); // Disable all options
+
+                 const selectedRadio = block.querySelector('input[type="radio"]:checked');
+                 const selectedLabel = selectedRadio ? selectedRadio.nextElementSibling : null; // Get the label of the selected option
+                 const userAnswer = selectedRadio ? selectedRadio.value : null;
+
+                 const allLabels = block.querySelectorAll('label');
+                 let correctLabel = null;
+
+                 // Find the label corresponding to the correct answer
+                 allLabels.forEach(label => {
+                      if (label.getAttribute('data-option-value') === correctAnswer) {
+                          correctLabel = label;
+                      }
+                 });
+
+                 // Apply styling based on correctness
+                 if (userAnswer === correctAnswer) {
+                     totalScore += points;
+                     if (selectedLabel) {
+                         selectedLabel.classList.add('user-correct');
+                     }
+                 } else {
+                     if (selectedLabel) {
+                         selectedLabel.classList.add('user-incorrect');
+                     }
+                 }
+
+                 // Always highlight the correct answer
+                 if (correctLabel) {
+                     correctLabel.classList.add('reveal-correct');
+                 }
+             });
+
+             // Display results
+             scoreElement.innerHTML = `Your Score: <span class="score-value">${totalScore.toFixed(1)} / ${maxScore.toFixed(1)}</span>`;
+             resultsArea.classList.remove('hidden');
+             resultsArea.classList.add('visible'); // Trigger fade-in
+
+             // Scroll to results
+             resultsArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+
+        function handleStartQuiz() {
+            if (!currentQuizKey || currentQuizData.length === 0 || quizStarted) {
+                 console.error(`Start condition failed: Key=${currentQuizKey}, Data=${currentQuizData.length}, Started=${quizStarted}`);
+                 return;
+             }
+            console.log(`Starting quiz: ${currentQuizKey}`);
+            quizStarted = true;
+            quizSubmitted = false; // Ensure submitted flag is reset
+
+            startQuizBtn.disabled = true;
+            startQuizBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Starting...';
+            quizSelectionArea.classList.add('hidden');
+            startQuizArea.classList.add('hidden');
+
+            setTimeout(() => {
+                 console.log("setTimeout: Rendering questions and starting timer...");
+                 renderQuestions();
+                 timerContainer.classList.remove('hidden');
+                 finalSubmitArea.classList.remove('hidden'); // **Show the final submit button**
+                 finalSubmitBtn.disabled = false; // Ensure final submit is enabled
+                 finalSubmitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Quiz'; // Reset text/icon
+                 startTimer();
+                 quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM Loaded. Initializing.");
+
+            // Initial UI setup
+            timerContainer.classList.add('hidden');
+            questionsArea.classList.add('hidden');
+            questionsArea.classList.remove('visible');
+            startQuizArea.classList.add('hidden');
+            finalSubmitArea.classList.add('hidden'); // Keep final submit hidden initially
+            resultsArea.classList.add('hidden');
+             resultsArea.classList.remove('visible');
+            quizSelectionArea.classList.remove('hidden');
+
+            // Add listeners for quiz selection buttons
+            document.querySelectorAll('.select-quiz-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    selectQuiz(event.target.getAttribute('data-quiz-key'));
+                });
+            });
+
+            // Add listener for the start button
+            startQuizBtn.addEventListener('click', handleStartQuiz);
+
+            // Add listener for the FINAL submit button
+            finalSubmitBtn.addEventListener('click', handleSubmitQuiz);
+
+            // Remove delegated listeners for old per-question buttons
+
+            document.body.style.opacity = 1;
+            console.log("Initialization complete. Ready.");
+        });
+
+    </script>
+
+</body>
+</html>
