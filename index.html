@@ -285,6 +285,53 @@
             background: #555;
         }
 
+        /* --- Test Button Style --- */
+        .test-button {
+            display: inline-block; /* Allows padding and margin */
+            background-color: var(--success-color); /* Use the GitHub green */
+            color: #ffffff; /* White text for contrast */
+            padding: 0.8rem 1.8rem; /* Comfortable padding */
+            border-radius: 6px; /* Rounded corners like GitHub */
+            text-decoration: none; /* Remove default underline */
+            font-weight: 600; /* Make text slightly bold */
+            font-size: 1.1rem; /* Slightly larger font */
+            border: none; /* No border */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+        }
+        
+        .test-button .fas { /* Style icon inside button */
+            margin-right: 0.6em;
+            color: #ffffff; /* Ensure icon is also white */
+        }
+        
+        .test-button:hover,
+        .test-button:focus {
+            background-color: #4cc15b; /* Slightly lighter green on hover/focus */
+            color: #ffffff;
+            text-decoration: none;
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+        }
+        
+        .test-button:active {
+            transform: translateY(0); /* Push back down on click */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Ensure fade-in works on the button container div */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* --- Responsive Adjustments --- */
         @media (max-width: 768px) {
             h1 {
@@ -959,6 +1006,13 @@
             </section>
 
         </main>
+
+        <div style="text-align: center; margin-top: 3rem; margin-bottom: 2rem;" class="fade-in">
+            
+            <a href="iks-tests.html" class="test-button" target="_blank" title="Go to IKS Practice Tests">
+                <i class="fas fa-pencil-alt"></i> Take the IKS Tests
+            </a>
+        </div>
 
         <footer>
              <p>Happy Studying! Focus on understanding the connections. Good luck with your MCQs!</p>
