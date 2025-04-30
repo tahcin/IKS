@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKS Exam Prep Guide - Improved</title>
+
+    <!-- Icons: Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Fonts: Google Fonts (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            /* Adjusted Colors: Lighter main background */
+            --bg-color: #161b22; /* GitHub Dark Secondary BG (Now Main) */
+            --text-color: #c9d1d9; /* GitHub Dark Text */
+            --heading-color: #e6edf3; /* Slightly brighter for headings */
+            --border-color: #30363d; /* GitHub Dark Border */
+            --accent-color: #58a6ff; /* GitHub Dark Link Blue */
+            --accent-color-hover: #79c0ff;
+            --secondary-bg-color: #0d1117; /* GitHub Dark Background (Now Secondary) */
+            --icon-color: #8b949e; /* GitHub Dark Icon Grey */
+            --success-color: #3fb950; /* GitHub Green */
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px; /* Base font size */
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: var(--bg-color); /* Ensure container bg matches body */
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            color: var(--accent-color);
+        }
+        h1 .fa-brain {
+            font-size: 2rem;
+        }
+
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem; /* Slightly more space between modules */
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center; /* Vertical alignment */
+            justify-content: flex-start; /* <<< Key change for left alignment */
+            gap: 0.75rem; /* Space between icon and text */
+            cursor: pointer; /* Indicate collapsibility */
+            transition: color 0.3s ease;
+        }
+
+        h2:hover {
+            color: var(--accent-color-hover);
+        }
+
+        /* Chevron icon styling */
+        h2 .fa-chevron-down,
+        h2 .fa-chevron-right {
+            font-size: 1.2rem;
+            color: var(--icon-color);
+            transition: transform 0.3s ease;
+            margin-left: auto; /* Push icon to the far right */
+            padding-left: 0.5rem; /* Add a little space before the chevron */
+        }
+
+        h2.collapsed .fa-chevron-down {
+            transform: rotate(-90deg);
+        }
+
+        /* Module descriptive icon styling (inside h2) */
+        h2 > .fas:not(.fa-chevron-down):not(.fa-chevron-right) { /* Target only the first icon */
+             color: inherit; /* Inherit h2 color */
+             margin-right: 0; /* Gap handles spacing */
+             flex-shrink: 0; /* Prevent icon from shrinking */
+        }
+
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        h3 .fa-lightbulb {
+            color: var(--success-color);
+        }
+
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color-hover);
+            text-decoration: underline;
+        }
+
+        strong, b {
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        li::marker {
+             color: var(--accent-color);
+        }
+
+        code {
+            background-color: var(--secondary-bg-color);
+            color: var(--text-color);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        /* --- General Icons --- */
+        .fa, .fas, .far, .fal, .fad, .fab {
+             /* Default icon color */
+             color: var(--icon-color);
+             /* Removed margin-right here, handle spacing with gap or specific rules */
+             width: 1.2em; /* Ensure consistent icon width */
+             text-align: center;
+        }
+        /* Keep specific icon colors */
+        .exam-tip .fa-star {
+            color: var(--success-color);
+            margin-right: 0.5em; /* Add margin back for specific cases if needed */
+        }
+        h3 .fa { /* Icons inside h3 */
+            margin-right: 0; /* Use gap */
+        }
+
+
+        /* --- Exam Tip Block --- */
+        .exam-tip {
+            background-color: var(--secondary-bg-color);
+            border-left: 4px solid var(--success-color);
+            padding: 1rem 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95rem;
+        }
+        .exam-tip p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* --- Module Content Styling (for collapsing) --- */
+        .module-content {
+            max-height: 10000px; /* Large enough for content */
+            overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+                        opacity 0.5s ease-in-out 0.1s,
+                        padding 0.5s ease-in-out,
+                        margin 0.5s ease-in-out;
+            opacity: 1;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+             border-left: 2px solid var(--border-color); /* Subtle left border for content */
+             padding-left: 1.5rem; /* Indent content slightly */
+             margin-left: 0.6em; /* Align content slightly indented from h2 icon */
+        }
+
+        .module-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            border-left-width: 0; /* Collapse border */
+            transition: max-height 0.5s cubic-bezier(0.65, 0, 0.35, 1),
+                        opacity 0.2s ease-in-out,
+                        padding 0.3s ease-in-out,
+                        margin 0.3s ease-in-out,
+                        border-width 0.3s ease-in-out;
+        }
+
+
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(15px); /* Slightly smaller translate */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--icon-color);
+            font-size: 0.9rem;
+        }
+
+        /* --- Scrollbar (for Webkit browsers) --- */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            .container {
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+            .module-content {
+                padding-left: 1rem;
+                 margin-left: 0.5em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-brain"></i> IKS Exam Prep</h1>
+            <p class="fade-in">Alright, let's get you prepped for that exam! We'll break down the podcast content following your course outline precisely. Think of this as your targeted revision guide – focusing on the key ideas, terms, and distinctions perfect for nailing those MCQs.</p>
+        </header>
+
+        <main>
+
+            <!-- Module 1 -->
+            <section id="module1">
+                <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-book-open"></i> Module 1: Introduction to Indian Knowledge System <i class="fas fa-chevron-down"></i></h2>
+                <div class="module-content">
+                    <!-- Content as before -->
+                    <h3 class="fade-in"><i class="fas fa-lightbulb"></i>Introduction to IKS:</h3>
+                    <p class="fade-in">IKS isn't just ancient history or myths; it's a vast system encompassing philosophy, science, arts, governance, and practical wisdom developed in the Indian subcontinent.</p>
+                    <p class="fade-in">It addresses fundamental human questions about happiness, suffering, and the nature of reality.</p>
+                    <p class="fade-in">Its core aim is often holistic well-being and liberation (<strong>Moksha</strong>).</p>
+
+                    <h3 class="fade-in"><i class="fas fa-cogs"></i>IKS in Action:</h3>
+                    <p class="fade-in">IKS has profound relevance today, offering insights into areas like environmental consciousness, personal well-being, and even providing foundational ideas for modern science and technology (though often indirectly).</p>
+                    <p class="fade-in">It influenced education, science (math, astronomy, medicine), technology (metallurgy, engineering), governance, and arts across history.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-sitemap"></i>The IKS Corpus - Classification Framework:</h3>
+                    <p class="fade-in">The knowledge is vast and traditionally classified. A primary distinction is often made based on acceptance of the Vedas (<strong>Astika</strong> vs. <strong>Nastika</strong> schools).</p>
+                    <p class="fade-in">Knowledge was transmitted both orally (primary for a long time, especially Vedas) and through written texts (<strong>Sutras</strong>, <strong>Bhashyas</strong>, etc.).</p>
+
+                    <h3 class="fade-in"><i class="fas fa-history"></i>Historicity of IKS:</h3>
+                    <p class="fade-in">Dating is complex due to the long oral tradition.</p>
+                    <p class="fade-in">However, evidence (archaeological, textual references like astronomical data, inscriptions) shows a deep and continuous history spanning millennia. India had a massive body of knowledge (<strong>Vedas</strong>, <strong>Puranas</strong>, <strong>Itihasas</strong>) even during periods considered "dark ages" elsewhere.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-star-of-life"></i>Salient Aspects of IKS:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Holistic & Integrated:</strong> Didn't rigidly separate science, philosophy, religion, and art. Viewed knowledge domains as interconnected.</li>
+                        <li><strong>Purpose-Driven:</strong> Knowledge wasn't just for its own sake but aimed at achieving life goals (<strong>Purusharthas: Dharma, Artha, Kama, Moksha</strong>) and understanding reality.</li>
+                        <li><strong>Emphasis on Sound & Orality:</strong> Precise pronunciation (<strong>Shiksha</strong>) was crucial for preserving knowledge transmitted orally, especially the Vedas.</li>
+                        <li><strong>Culture of Inquiry & Debate:</strong> Valued critical thinking, discussion, and reconciling different viewpoints (<strong>Khandana & Samanvaya</strong>).</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-book"></i>Introduction to Vedas:</h3>
+                    <p class="fade-in">The word <strong>Veda</strong> comes from 'Vid' (to know). They represent foundational knowledge or wisdom.</p>
+                    <p class="fade-in">Considered the highest authority in Hindu tradition (<strong>Shruti</strong> - that which is heard/revealed).</p>
+                    <p class="fade-in">Traditionally believed to be <strong>Apaurusheya</strong> (not of human origin, divinely revealed to Rishis).</p>
+
+                    <h4 class="fade-in">Synopsis of the Four Vedas:</h4>
+                    <ul class="fade-in">
+                        <li><strong>Rig Veda:</strong> Oldest. Primarily hymns (<strong>Mantras</strong>) praising deities (Indra, Agni, Soma, etc.). Associated with the <strong>Hota</strong> priest (invoker). Rich in cosmology, ethics, nature.</li>
+                        <li><strong>Yajur Veda:</strong> Focuses on the procedural aspects of rituals and sacrifices (<strong>Yajnas</strong>). Mantras are mostly prose (<strong>Yajus</strong>). Associated with the <strong>Adhvaryu</strong> priest (performer). Contains hints of practical science. Two main branches: <strong>Krishna</strong> (mixed prose/verse) & <strong>Shukla</strong> (purely verse).</li>
+                        <li><strong>Sama Veda:</strong> Veda of melodies. Most mantras are from the Rig Veda but set to music (<strong>Saman</strong>). Chanted by the <strong>Udgata</strong> priest (chanter). Root of Indian classical music.</li>
+                        <li><strong>Atharva Veda:</strong> Broader scope. Includes everyday life concerns, healing, charms, spells, philosophy, prayers. Associated with the <strong>Brahma</strong> priest (overseer). Covers both practical and spiritual aspects.</li>
+                    </ul>
+
+                    <h4 class="fade-in">Sub-classification of Vedas (Each Veda typically has these four parts):</h4>
+                    <ul class="fade-in">
+                        <li><strong>Samhita:</strong> The core collection of hymns/mantras.</li>
+                        <li><strong>Brahmana:</strong> Prose texts explaining the rituals, their meaning, and procedures. The "how-to" manual for the Samhitas.</li>
+                        <li><strong>Aranyaka:</strong> "Forest texts," containing more philosophical and mystical interpretations of rituals, often for those who retreated from active life. Bridge to Upanishads.</li>
+                        <li><strong>Upanishad:</strong> (Form the basis of <strong>Vedanta</strong>). Philosophical culmination, exploring the nature of reality (<strong>Brahman</strong>), the self (<strong>Atman</strong>), and their relationship. Focus shifts from external ritual to internal knowledge.</li>
+                    </ul>
+
+                    <p class="fade-in"><strong>Messages in Vedas:</strong> Include cosmology, ethics (<strong>Rta</strong> - cosmic order, <strong>Dharma</strong> - duty), praise of nature, importance of rituals, and ultimately, philosophical inquiry into the self and ultimate reality (especially in Upanishads).</p>
+
+                    <h3 class="fade-in"><i class="fas fa-puzzle-piece"></i>Introduction to Vedangas (Six Limbs/Auxiliary Disciplines):</h3>
+                    <p class="fade-in">Essential for the correct understanding and application of the Vedas.</p>
+                    <ol class="fade-in">
+                        <li><strong>Shiksha:</strong> Phonetics (correct pronunciation).</li>
+                        <li><strong>Vyakarana:</strong> Grammar (understanding structure).</li>
+                        <li><strong>Nirukta:</strong> Etymology (word origins and meanings).</li>
+                        <li><strong>Chhandas:</strong> Meter/Prosody (rhythm of verses).</li>
+                        <li><strong>Kalpa:</strong> Ritual procedures.</li>
+                        <li><strong>Jyotisha:</strong> Auspicious timing/Astronomy.</li>
+                    </ol>
+
+                    <h3 class="fade-in"><i class="fas fa-balance-scale"></i>Vedic Life: A Distinctive Feature:</h3>
+                    <p class="fade-in">Characterized by balance (<strong>Pravritti</strong> - engagement with the world & <strong>Nivritti</strong> - turning inward/renunciation), importance of <strong>Agni</strong> (fire) in rituals, the concept of <strong>Yajna</strong> (sacrifice/offering) as sharing and maintaining cosmic order, and guided by core values like <strong>Rta</strong> and <strong>Dharma</strong>. Emphasis on the <strong>Pancha Mahayajnas</strong> (five daily offerings/duties).</p>
+
+                    <div class="exam-tip fade-in">
+                        <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Focus on the scope and relevance of IKS. Know the four Vedas and their primary focus/associated priest. Understand the four sub-classifications (Samhita to Upanishad). Memorize the six Vedangas and their purpose (aiding Vedic understanding). The core aim is often balance and Dharma.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 2 -->
+            <section id="module2">
+                 <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-universal-access"></i> Module 2: The Philosophical System (Darshanas) <i class="fas fa-chevron-right"></i></h2>
+                <div class="module-content collapsed">
+                    <!-- Content as before -->
+                     <h3 class="fade-in"><i class="fas fa-lightbulb"></i>Introduction to Philosophical Systems:</h3>
+                    <p class="fade-in"><strong>Darshana</strong> means 'seeing' or 'perspective', aiming for the right view of reality and how to achieve it.</p>
+                    <p class="fade-in">Emerged from reflecting on Vedic knowledge and life experiences.</p>
+                    <p class="fade-in"><strong>Development of Philosophy:</strong> Evolved over time, starting with curiosity about the external world (<strong>Jagat</strong>), then looking upward to divine forces (<strong>Ishvara</strong>) explaining cosmic order, and finally turning inward to understand the self (<strong>Jiva/Atman</strong>).</p>
+
+                    <h3 class="fade-in"><i class="fas fa-star-of-life"></i>Unique Features of (Indian) Philosophy:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Practical Goal:</strong> Primarily aimed at overcoming suffering and achieving <strong>Moksha</strong> (liberation). Not just intellectual exercise.</li>
+                        <li><strong>Close Link to Religion:</strong> Boundaries often blurred compared to Western traditions.</li>
+                        <li><strong>Acceptance of Authority:</strong> Many schools accept sources like the Vedas (<strong>Astika</strong>) or teachings of enlightened beings (Jainism, Buddhism) as valid knowledge (<strong>Pramana</strong>).</li>
+                        <li><strong>Emphasis on Karma & Rebirth:</strong> These concepts underpin most systems (except perhaps Charvaka).</li>
+                        <li><strong>Culture of Debate:</strong> Rigorous discussion and critique were integral to development.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-check-circle"></i>Astika Schools (Accept Vedas):</h3>
+                    <ul class="fade-in">
+                        <li><strong>Sankhya:</strong> Dualistic (<strong>Prakriti/Purusha</strong>), theory behind Yoga, focuses on Gunas and Tatvas. Liberation through discriminative knowledge.</li>
+                        <li><strong>Yoga:</strong> Practical path based on Sankhya, focuses on stilling the mind (<strong>Chitta Vritti Nirodha</strong>) through the <strong>Ashtanga</strong> (8 limbs) path to achieve <strong>Kaivalya</strong>.</li>
+                        <li><strong>Nyaya:</strong> School of logic and epistemology. Focuses on <strong>Pramanas</strong> (valid means of knowing: perception, inference, comparison, testimony) and logical reasoning/syllogism (5 steps mentioned). Aims to eliminate suffering through right knowledge.</li>
+                        <li><strong>Vaisheshika:</strong> Analyzes reality into categories (<strong>Padarthas</strong>: Dravya, Guna, Karma, Samanya, Vishesha, Samavaya, Abhava). Atomic theory (<strong>Paramanu</strong>). Realist and pluralistic. Complements Nyaya.</li>
+                        <li><strong>Purva Mimamsa:</strong> Focuses on <strong>Dharma</strong> (duty) as defined by the ritualistic portion (<strong>Karma Kanda</strong>) of the Vedas. Emphasizes correct performance of rituals to generate <strong>Apurva</strong> leading to desired results/Moksha. Views Vedas as eternal and unauthored.</li>
+                        <li><strong>Vedanta (Uttara Mimamsa):</strong> Focuses on the philosophical end of the Vedas (<strong>Upanishads</strong>). Central concern is the relationship between Jiva, Jagat, and Brahman. Key text base: <strong>Prasthanatrayi</strong> (Upanishads, Brahma Sutras, Bhagavad Gita).
+                            <ul>
+                                <li><strong>Advaita (Shankara):</strong> Non-dualism. <strong>Brahman</strong> is the only ultimate reality. Jiva=Brahman. World is illusory (<strong>Maya/Avidya</strong>). Path is <strong>Jnana Yoga</strong> (knowledge).</li>
+                                <li><strong>Vishishtadvaita (Ramanuja):</strong> Qualified non-dualism. Brahman (Vishnu) is real, with qualities. Jiva/Jagat are real but dependent parts/body of Brahman. Path is <strong>Bhakti Yoga</strong> (devotion) and <strong>Prapatti</strong> (surrender).</li>
+                                <li><strong>Dvaita (Madhva):</strong> Dualism. Brahman, Jiva, and Jagat are eternally distinct realities. Emphasizes difference.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-times-circle"></i>Nastika Schools (Reject Vedas):</h3>
+                    <ul class="fade-in">
+                        <li><strong>Jaina:</strong> Focuses on <strong>Anekantavada</strong> (many-sided reality) and <strong>Syadvada</strong> (relativity of truth). Believes in souls (<strong>Jiva</strong>) bound by subtle karmic matter. Path to Moksha is through the <strong>Three Jewels</strong> (Right Faith, Knowledge, Conduct) and the <strong>Five Vows</strong> (especially <strong>Ahimsa</strong>).</li>
+                        <li><strong>Buddhism:</strong> (Podcast mentioned its existence as Nastika but didn't detail its tenets). Core teachings revolve around suffering (<strong>Dukkha</strong>), its cause (desire/attachment), its cessation (<strong>Nirvana</strong>), and the path (<strong>Eightfold Path</strong>). Rejects eternal soul (Atman) and Vedic authority.</li>
+                        <li><strong>Charvaka:</strong> (Podcast didn't cover this school). Known as a materialist school, rejecting Vedas, inference, karma, rebirth, and emphasizing direct perception as the only valid source of knowledge and seeking pleasure in this life as the goal.</li>
+                    </ul>
+
+                    <div class="exam-tip fade-in">
+                        <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Know the six <strong>Astika</strong> schools and their core focus (e.g., Sankhya=dualism, Yoga=practice, Nyaya=logic, Vaisheshika=categories, Mimamsa=ritual, Vedanta=Upanishads). Understand the key distinctions between Advaita, Vishishtadvaita, and Dvaita. For Jainism, remember Anekantavada, Syadvada, Karma as matter, and the Three Jewels/Five Vows. Know the basic definition of Astika vs. Nastika.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 3 -->
+            <section id="module3">
+                 <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-language"></i> Module 3: Linguistics <i class="fas fa-chevron-right"></i></h2>
+                <div class="module-content collapsed">
+                   <!-- Content as before -->
+                    <h3 class="fade-in"><i class="fas fa-lightbulb"></i>Introduction to Linguistics in IKS:</h3>
+                    <p class="fade-in">Ancient India had a profound interest in language, not just for communication, but for preserving sacred texts (Vedas) accurately and understanding meaning precisely. <strong>Vyakarana</strong> (grammar) was a key Vedanga.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-book-reader"></i>Ashtadhyayi (Panini):</h3>
+                    <ul class="fade-in">
+                        <li>A foundational masterpiece of Sanskrit grammar by <strong>Panini</strong> (around 6th-4th C BCE).</li>
+                        <li>Contains nearly 4,000 <strong>Sutras</strong> (concise rules).</li>
+                        <li>Describes the structure of Sanskrit with unparalleled precision and economy.</li>
+                        <li>Considered a landmark in the history of linguistics worldwide, influencing modern computational linguistics.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-volume-up"></i>Phonetics (Shiksha):</h3>
+                    <ul class="fade-in">
+                        <li>The science of sound production and pronunciation. Crucial for accurate Vedic chanting.</li>
+                        <li>Analyzed sounds based on place of articulation (throat, palate, etc.) and effort (aspiration, voicing).</li>
+                        <li>Panini incorporated phonetic principles systematically.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-cogs"></i>Word Generation:</h3>
+                    <p class="fade-in">Panini's grammar is highly generative. It shows how almost all Sanskrit words can be derived from basic elements:</p>
+                    <ul class="fade-in">
+                        <li><strong>Dhatu:</strong> Verbal roots (core meaning/action).</li>
+                        <li><strong>Pratyaya:</strong> Suffixes (added to roots/stems to form words, indicate grammatical function).</li>
+                        <li>Specific rules govern how these combine and transform.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-laptop-code"></i>Computational Aspects:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Rule-Based:</strong> Panini's system is essentially an algorithm for generating and understanding Sanskrit.</li>
+                        <li><strong>Recursive:</strong> Rules can be applied recursively, especially in forming compound words (<strong>Samasa</strong>).</li>
+                        <li><strong>Context-Sensitive:</strong> Rules often depend on the specific sounds or structures they apply to.</li>
+                        <li>Its logical structure is seen as a precursor to concepts used in modern computer programming and formal language theory.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-memory"></i>Mnemonics:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Maheshwara Sutras:</strong> 14 concise sutras attributed to Shiva, organizing Sanskrit sounds efficiently. Used by Panini as a basis for his rules.</li>
+                        <li><strong>Pratyaharas:</strong> Short codes (like 'Ac' for vowels, 'Hal' for consonants) derived from the Maheshwara Sutras, allowing Panini to refer to entire groups of sounds very briefly in his rules – a brilliant mnemonic and compression technique.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-project-diagram"></i>Sentence Formation (Karaka Theory):</h3>
+                    <ul class="fade-in">
+                        <li>Focuses on the relationship between nouns (or noun phrases) and the main action (verb) in a sentence.</li>
+                        <li>Defines roles like <strong>Karta</strong> (agent/doer), <strong>Karma</strong> (object), <strong>Karana</strong> (instrument), etc.</li>
+                        <li>This system clarifies function regardless of word order, enabling Sanskrit's flexibility.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-link"></i>Verbs and Prefixes (Upasargas):</h3>
+                    <ul class="fade-in">
+                        <li>Prefixes added to verb roots significantly modify their meaning (e.g., <code>kriti</code> vs. <code>apakriti</code>, <code>upakriti</code>, <code>nirakriti</code>). Panini cataloged these systematically.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-robot"></i>Role of Sanskrit in Natural Language Processing (NLP):</h3>
+                    <ul class="fade-in">
+                        <li>Panini's rule-based, unambiguous grammar makes Sanskrit structure highly logical and potentially suitable for computer processing.</li>
+                        <li>Its systematic nature has inspired research in computational linguistics and AI regarding how to model human language formally.</li>
+                    </ul>
+
+                    <div class="exam-tip fade-in">
+                        <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Associate <strong>Panini</strong> with the <strong>Ashtadhyayi</strong> and foundational Sanskrit grammar. Understand the core components: <strong>Dhatu</strong>, <strong>Pratyaya</strong>, <strong>Sutras</strong>. Recognize the computational aspects: rule-based, recursive, mnemonic codes (<strong>Pratyaharas</strong> from <strong>Maheshwara Sutras</strong>). Know the <strong>Karaka</strong> theory explains grammatical function independent of word order. Link <strong>Shiksha</strong> to phonetics.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 4 -->
+            <section id="module4">
+                 <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-scroll"></i> Module 4: Wisdom through the Ages and Logic Framework <i class="fas fa-chevron-right"></i></h2>
+                 <div class="module-content collapsed">
+                    <!-- Content as before -->
+                    <h3 class="fade-in"><i class="fas fa-door-open"></i>Gateways of Ancestral Wisdoms:</h3>
+                    <p class="fade-in">IKS itself is this gateway, preserved through various texts and traditions.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-book-journal-whills"></i>Introduction to Puranas:</h3>
+                    <ul class="fade-in">
+                        <li>Literally 'ancient tales'. A vast genre of post-Vedic texts.</li>
+                        <li>Traditionally 18 <strong>Mahapuranas</strong> (great Puranas) and numerous <strong>Upapuranas</strong> (minor Puranas).</li>
+                        <li>While containing myths, legends, and genealogies, they are encyclopedic, covering cosmology, history, philosophy, geography, social customs, rituals, law, medicine, etc.</li>
+                        <li><strong>Issues of Interest in Puranas:</strong> Cosmology (creation/destruction cycles), genealogies of gods, sages, and kings, geography of ancient India, religious practices, social duties, philosophy embedded in narratives.</li>
+                        <li><strong>The Puranic Repository:</strong> Serve as a massive repository of cultural memory, transmitting religious, social, and historical knowledge in accessible narrative forms, making complex ideas understandable to a wider audience.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-landmark"></i>Introduction to Itihasas:</h3>
+                    <p class="fade-in">Literally 'thus it was' or history. Refers primarily to the two great epics:</p>
+                    <ul class="fade-in">
+                        <li><strong>Ramayana:</strong> Attributed to Valmiki. Idealistic narrative focusing on Rama, embodying <strong>Dharma</strong>. Explores duty, loyalty, good vs. evil.</li>
+                        <li><strong>Mahabharata:</strong> Attributed to Vyasa. More complex and realistic, exploring dharma dilemmas, politics, war, human nature. Contains the <strong>Bhagavad Gita</strong>.</li>
+                        <li><strong>Key Messages in Itihasas:</strong> Explore Dharma in various complex situations, consequences of actions (Karma), human relationships, ideals of kingship, heroism, devotion, and philosophical truths (especially the Gita).</li>
+                    </ul>
+
+                     <h3 class="fade-in"><i class="fas fa-gavel"></i>Wisdom through Niti-shastras:</h3>
+                     <ul class="fade-in">
+                         <li>Texts focused on <strong>Niti</strong> (wise conduct, policy, ethics), especially in statecraft and practical life.</li>
+                         <li>Examples include Kautilya's <strong>Arthashastra</strong> (though broader), <strong>Shukra Niti</strong>, <strong>Vidura Niti</strong> (part of Mahabharata), <strong>Panchatantra</strong> (animal fables teaching statecraft/wisdom).</li>
+                         <li>Offer pragmatic advice on leadership, diplomacy, personal conduct, achieving success within ethical boundaries.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-quote-right"></i>Wisdom through Subhashita:</h3>
+                    <ul class="fade-in">
+                        <li>Literally 'well-spoken' verses. Short, memorable, often poetic sayings conveying timeless wisdom, ethics, and practical advice on life. Found scattered in many texts and collected in anthologies. Like proverbs or aphorisms.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-search-plus"></i>Indian Scheme of Knowledge (Pramana):</h3>
+                    <p class="fade-in">Focus on valid means of knowing. <strong>Nyaya</strong> school particularly systematized this.</p>
+                    <ul class="fade-in">
+                        <li><strong>Pramana:</strong> The means or instrument of valid knowledge.</li>
+                        <li><strong>Pramata:</strong> The knower, the subject.</li>
+                        <li><strong>Prameya:</strong> The object of knowledge.</li>
+                        <li><strong>Prama:</strong> The resulting valid knowledge itself. (This forms the "knowledge triangle").</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-atom"></i>Prameya – A Vaisheshikan Approach to Physical Reality:</h3>
+                    <p class="fade-in"><strong>Prameya</strong> (objects of knowledge) are analyzed through the <strong>Padarthas</strong> (categories) in <strong>Vaisheshika</strong>.</p>
+                    <ul class="fade-in">
+                        <li><strong>Dravyas (Substances):</strong> The fundamental constituents (9 types: Earth, Water, Fire, Air, Ether, Time, Space, Soul, Mind).</li>
+                        <li><strong>Attributes (Gunas):</strong> Properties inhering in substances (24 types).</li>
+                        <li><strong>Action (Karma):</strong> Motion/change inhering in substances (5 types).</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-key"></i>Pramana – The Means of Valid Knowledge (Nyaya focus):</h3>
+                    <ul class="fade-in">
+                        <li><strong>Pratyaksha:</strong> Direct Perception (through senses).</li>
+                        <li><strong>Anumana:</strong> Inference (logical deduction, e.g., seeing smoke -> inferring fire).</li>
+                        <li><strong>Upamana:</strong> Comparison/Analogy (knowing something new by its similarity to something known).</li>
+                        <li><strong>Shabda:</strong> Verbal Testimony (knowledge from reliable sources, scriptures, experts). (Different schools accept different Pramanas).</li>
+                    </ul>
+
+                    <h4 class="fade-in">Samanya, Vishesha, Samavaya (from Vaisheshika):</h4>
+                    <ul class="fade-in">
+                        <li><strong>Samanya:</strong> Universality (what makes things of the same class similar).</li>
+                        <li><strong>Vishesha:</strong> Particularity (what makes an individual unique).</li>
+                        <li><strong>Samavaya:</strong> Inherence (inseparable relationship, e.g., quality in a substance).</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-question-circle"></i>Ambiguities & Establishing Valid Knowledge:</h3>
+                    <ul class="fade-in">
+                         <li>Recognized that perception can be flawed, inference needs sound logic, testimony needs reliable sources.</li>
+                         <li><strong>Samsaya (Doubt):</strong> Seen as the starting point for inquiry, not just a negative state. Identifying doubt motivates seeking <strong>Prama</strong>.</li>
+                         <li><strong>Framework:</strong> Use <strong>Pramanas</strong> rigorously, employ logical steps (like Nyaya's 5-step syllogism), avoid fallacies.</li>
+                         <li><strong>Deductive/Inductive Logic:</strong> While not using these exact Western terms, Nyaya's inferential logic (<strong>Anumana</strong>) involves both moving from specific observations to general principles and applying general principles to specific cases.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-exclamation-triangle"></i>Potential Fallacies (Hetvabhasa):</h3>
+                    <p class="fade-in">Nyaya identified specific errors in reasoning that invalidate an inference. The podcast mentioned 5 key types:</p>
+                    <ol class="fade-in">
+                        <li><strong>Savyabhichara:</strong> Irregular reason (reason present with AND without the conclusion).</li>
+                        <li><strong>Viruddha:</strong> Contradictory reason (reason proves the opposite).</li>
+                        <li><strong>Satpratipaksha:</strong> Counterbalanced reason (equally strong reason proves the opposite).</li>
+                        <li><strong>Asiddha:</strong> Unestablished reason (the reason itself isn't proven).</li>
+                        <li><strong>Badhita:</strong> Mistimed/Contradicted reason (reason invalidated by other knowledge or time).</li>
+                    </ol>
+
+                    <h3 class="fade-in"><i class="fas fa-check-double"></i>Siddhanta: Established Tenets:</h3>
+                    <p class="fade-in">Conclusions reached through rigorous application of <strong>Pramanas</strong> and logical debate, accepted as well-established knowledge within a particular school or tradition. Four types mentioned: universally accepted, specific to a school, implied/hypothetical for argument, accepted provisionally.</p>
+
+                    <div class="exam-tip fade-in">
+                        <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Understand the difference between <strong>Puranas</strong> and <strong>Itihasas</strong> (scope, narrator role). Know the purpose of <strong>Niti-shastras</strong> and <strong>Subhashitas</strong>. Memorize the components of the Knowledge Triangle (<strong>Pramata, Prameya, Pramana</strong>). Be familiar with the key <strong>Pramanas</strong> (Nyaya). Know the 7 <strong>Padarthas</strong> (Vaisheshika). Recognize the importance of doubt (<strong>Samsaya</strong>) and the common logical fallacies (<strong>Hetvabhasa</strong>).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 5 -->
+             <section id="module5">
+                 <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-calculator"></i> Module 5: Number System, Mathematics, and Astronomy <i class="fas fa-chevron-right"></i></h2>
+                <div class="module-content collapsed">
+                   <!-- Content as before -->
+                    <h3 class="fade-in"><i class="fas fa-history"></i>Number Systems - Historical Evidence:</h3>
+                    <ul class="fade-in">
+                        <li>Ancient India showed comfort with very large numbers early on (Vedic texts, <strong>Lilavati Vistara</strong>).</li>
+                        <li>Development of <strong>Zero (Shunya)</strong> as both a placeholder and a number.</li>
+                        <li>Invention of the <strong>Place Value System</strong> and the <strong>Decimal System</strong> (base-10). Highly efficient, praised by figures like Laplace. Evidence in inscriptions (Gujarat 594 CE, Gwalior 876 CE).</li>
+                        <li><strong>Salient Aspects of Indian Mathematics:</strong> Practical orientation (linked to astronomy, rituals, commerce), development of sophisticated algebra and trigonometry, use of concise <strong>Sutra</strong> style.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-sort-numeric-down"></i>Bhuta-Samkhya & Katapayadi Systems:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Bhuta-Samkhya:</strong> Using common words with numerical associations to represent numbers poetically (e.g., Moon=1, Eyes=2, Vedas=4, Oceans=4, Rudras=11). Read right-to-left.</li>
+                        <li><strong>Katapayadi:</strong> Mapping Sanskrit consonants to digits (0-9) based on their position in organized tables. Vowels usually ignored or act as zero. Allows encoding numbers into meaningful words/verses. Used in texts and Carnatic music (Melakarta ragas).</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-ruler-combined"></i>Measurements:</h3>
+                    <p class="fade-in">Developed detailed systems for length, time, and weight, often built up from very small conceptual units (<strong>Paramanu</strong>) to large scales (<strong>Yojana</strong>). Used factors like 7 or 8 frequently in scaling.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-infinity"></i>Pingala and the Binary System (Chhandas Shastra):</h3>
+                     <ul class="fade-in">
+                         <li><strong>Pingala</strong> (c. 3rd-2nd C BCE) analyzed Sanskrit poetic meters (<strong>Chhandas</strong>).</li>
+                         <li>Used <strong>Laghu</strong> (short syllable, L=1) and <strong>Guru</strong> (long syllable, G=0) patterns.</li>
+                         <li>Developed methods equivalent to generating <strong>binary sequences</strong> (Prastara).</li>
+                         <li>Calculated the number of combinations (2^n).</li>
+                         <li>Understood combinations (nCr) via <strong>Laghakriya</strong>.</li>
+                         <li>Described <strong>Pascal's Triangle</strong> (Varnameru or <strong>Meruprastara</strong>) centuries before Pascal.</li>
+                         <li>Identified binary cycles (De Bruijn sequences equivalent).</li>
+                    </ul>
+
+                     <h3 class="fade-in"><i class="fas fa-brain"></i>Introduction to Indian Mathematics & Unique Aspects:</h3>
+                    <p class="fade-in">See salient aspects above. Emphasis on algorithms and procedures.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-user-graduate"></i>Indian Mathematicians & Contributions:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Aryabhata</strong> (c. 499 CE): Calculated Pi (3.1416), Sine tables (<strong>Ardha-jya</strong>), solved indeterminate equations, proposed Earth's rotation. Wrote <strong>Aryabhatiya</strong>.</li>
+                        <li><strong>Brahmagupta</strong> (7th C CE): Worked with Zero, negative numbers, quadratic equations.</li>
+                        <li><strong>Bhaskara II</strong> (12th C CE): Wrote <strong>Lilavati</strong> (arithmetic) and <strong>Bijaganita</strong> (algebra). Advanced work on equations, permutations, combinations, hints of calculus concepts (differentiation).</li>
+                        <li><strong>Kerala School</strong> (c. 14th-16th C CE): Madhava, Parameshwara, Nilakantha Somayaji, Jyesthadeva. Developed infinite series for Pi, sine, cosine, tangent (predating Newton/Leibniz). Advanced calculus concepts. Wrote <strong>Tantrasangraha</strong>, <strong>Yuktibhasa</strong> (unique text with proofs/rationale).</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-shapes"></i>Algebra, Geometry, Trigonometry:</h3>
+                    <p class="fade-in">Covered extensively. Algebra (<strong>Bijaganita</strong>) included solving linear, quadratic, indeterminate equations. Geometry (<strong>Rekhaganita</strong>) linked to <strong>Sulbasutras</strong>, area calculations, transformations. Trigonometry (derived from <strong>Jya/Kotijya</strong>) crucial for astronomy, developed accurate sine tables and series expansions.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-th"></i>Magic Squares:</h3>
+                    <p class="fade-in">(Not explicitly detailed in the podcast, but part of the broader tradition). Arrangements of numbers where rows, columns, diagonals sum to the same constant. Found in ancient texts and temples.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-star"></i>Introduction to Indian Astronomy (Jyotisha):</h3>
+                    <p class="fade-in">Vedanga discipline. Driven by need for accurate calendars for rituals and agriculture. Highly observational and mathematical.</p>
+                    <p class="fade-in"><strong>Indian Contributions:</strong> See concepts below. Development of sidereal system (<strong>Nakshatras</strong>), accurate calculation of year/month lengths, eclipse prediction, planetary models.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-globe-asia"></i>Celestial Coordinate System:</h3>
+                    <p class="fade-in">Understood concepts like celestial sphere, equator, ecliptic, poles. Used systems based on ecliptic longitude/latitude and equatorial coordinates.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-calendar-alt"></i>Elements of the Indian Calendar:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Notion of Years/Months:</strong> Used Solar years (approx. 365.25 days), Lunar months (approx. 29.5 days), and Sidereal months (approx. 27.3 days based on <strong>Nakshatras</strong>). Mastered Luni-Solar coordination using intercalary months (<strong>Adhika Masa</strong>).</li>
+                        <li><strong>Panchanga (Five Limbs):</strong> The traditional Indian almanac based on:
+                            <ol>
+                                <li><strong>Tithi:</strong> Lunar day (30 in a lunar month).</li>
+                                <li><strong>Nakshatra:</strong> Lunar mansion the Moon is in (27/28).</li>
+                                <li><strong>Vara:</strong> Weekday (7 days).</li>
+                                <li><strong>Yoga:</strong> Period based on combined Sun-Moon longitude.</li>
+                                <li><strong>Karana:</strong> Half a Tithi.</li>
+                            </ol>
+                        </li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-tools"></i>Astronomical Instruments (Yantras):</h3>
+                    <p class="fade-in">Used for observation and calculation. Examples include armillary spheres (<strong>Gola Yantra</strong>), quadrants (<strong>Turiya Yantra</strong>), various sundials (<strong>Shanku, Nadi Valaya</strong>), water clocks (<strong>Ghati Yantra</strong>), computational boards (<strong>Phalaka Yantra</strong>).</p>
+
+                     <h3 class="fade-in"><i class="fas fa-building"></i>Jantar Mantar:</h3>
+                    <p class="fade-in">(Not mentioned in the podcast). Refers to large masonry observatories built by Raja Jai Singh II in the 18th century (Delhi, Jaipur etc.), representing a later phase inspired by earlier traditions and Islamic astronomy.</p>
+
+                    <div class="exam-tip fade-in">
+                         <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Know the key mathematical inventions: <strong>Zero, Place Value, Decimal</strong>. Understand the mnemonic systems (<strong>Bhuta-Samkhya, Katapayadi</strong>). Recognize <strong>Pingala's</strong> contribution to binary concepts/combinatorics. Know major mathematicians (<strong>Aryabhata, Bhaskara II, Kerala School/Madhava</strong>) and their key contributions (Pi, Sine series). Understand the basics of Indian astronomy: <strong>Nakshatras</strong>, Luni-Solar calendar, <strong>Panchanga</strong> elements.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module 6 -->
+            <section id="module6">
+                 <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-cog"></i> Module 6: Engineering and Technology <i class="fas fa-chevron-right"></i></h2>
+                 <div class="module-content collapsed">
+                    <!-- Content as before -->
+                    <h3 class="fade-in"><i class="fas fa-book-open"></i>S&T Heritage Sources:</h3>
+                    <p class="fade-in">Evidence comes from literary texts (Vedas, Epics, Puranas, specialized Shastras), archaeological remains (Indus Valley, monuments, tools), and living traditions (craft communities).</p>
+
+                    <h3 class="fade-in"><i class="fas fa-hard-hat"></i>S&T Heritage: Physical Structures & Temples:</h3>
+                    <p class="fade-in">Demonstrate advanced knowledge of:</p>
+                    <ul class="fade-in">
+                        <li><strong>Civil Engineering/Architecture:</strong> Town planning (<strong>IVC</strong>), large structures (temples, dams), precise geometry (altars, temples).</li>
+                        <li><strong>Materials Science:</strong> Understanding properties of stone, metals, wood, creating durable structures (<strong>Delhi Pillar</strong>, temples withstanding centuries).</li>
+                        <li><strong>Logistics & Management:</strong> Quarrying, transporting massive stones (Thanjavur temple), organizing large workforces.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-water"></i>S&T Heritage: Watershed Management:</h3>
+                    <p class="fade-in">Ancient India had sophisticated systems.</p>
+                     <ul class="fade-in">
+                        <li><strong>Kallanai Dam (Grand Anicut):</strong> Built on Kaveri river around 1st-2nd C CE, still functional, shows advanced hydraulic engineering.</li>
+                        <li><strong>Tank Irrigation:</strong> Common in South India.</li>
+                        <li><strong>Stepwells (Vavs/Baolis):</strong> Architectural marvels in West India for accessing groundwater.</li>
+                        <li>Understanding of water cycles, conservation, and distribution was crucial.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-gem"></i>Mining and Ore Extraction:</h3>
+                    <p class="fade-in">Texts like <strong>Arthashastra</strong> detail mining administration. Archaeological evidence points to extensive mining activities for copper, iron, gold etc. Developed smelting and refining techniques.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-industry"></i>Metal Technologies:</h3>
+                     <ul class="fade-in">
+                        <li><strong>Copper & Alloys (Brass, Bronze):</strong> Used from Indus Valley period. <strong>Lost wax casting</strong> perfected for idols (<strong>Panchaloha</strong>).</li>
+                        <li><strong>Zinc Extraction:</strong> Unique Indian achievement using downward distillation. Required precise temperature control and understanding of zinc's properties. <strong>Zawar mines</strong> in Rajasthan were major centers.</li>
+                        <li><strong>Iron & Steel:</strong>
+                            <ul>
+                                <li><strong>Delhi Iron Pillar:</strong> Famous for rust resistance (high phosphorus content, protective layer formation).</li>
+                                <li><strong>Wootz Steel:</strong> High-carbon crucible steel, basis for legendary Damascus swords. Known for hardness and patterned surface. Exported widely.</li>
+                                <li>Required advanced furnaces, temperature control, carbon management.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-theater-masks"></i>Lost Wax Casting (Madhucheshtha Vidhanam):</h3>
+                    <p class="fade-in">Ancient technique used for creating intricate metal sculptures (e.g., IVC dancing girl, Chola bronzes). Involves creating a wax model, coating it in clay, melting out the wax, and pouring molten metal into the mold.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-palette"></i>Dyes, Arts, Perfume Production:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Dyes:</strong> Extensive use of natural plant/mineral based dyes (Indigo, Turmeric, Madder). Complex fixing processes.</li>
+                        <li><strong>Painting:</strong> <strong>Ajanta</strong> murals show sophisticated techniques, pigment knowledge, and binders ensuring longevity.</li>
+                        <li><strong>Perfumes:</strong> Mentioned in texts, involved distillation and extraction from natural sources.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-syringe"></i>Surgical Techniques (Shalya Tantra):</h3>
+                    <ul class="fade-in">
+                        <li><strong>Sushruta Samhita:</strong> Key text. Describes over 120 surgical instruments (many resembling modern ones) made from high-quality steel.</li>
+                        <li>Detailed procedures for wound care, fractures, cataract surgery, and famously, <strong>rhinoplasty</strong> (nose reconstruction) using forehead/cheek flaps.</li>
+                        <li>Emphasized anatomy, hygiene, training (practicing on inanimate objects).</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-ship"></i>Shipbuilding:</h3>
+                    <p class="fade-in">Evidence from texts (<strong>Arthashastra, Yuktikalpataru</strong>), archaeology (Lothal dockyard), and accounts of extensive maritime trade points to well-developed shipbuilding capabilities for both riverine and sea-faring vessels. Yuktikalpataru classifies ship types, warns against mixing wood types.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-chart-line"></i>Status & Decline:</h3>
+                    <p class="fade-in">India was a technological leader for centuries. Decline attributed to factors like breakdown of oral traditions, social rigidity (caste), foreign invasions destroying centers/patronage, colonial policies suppressing local industries and promoting a narrative of backwardness.</p>
+
+                    <div class="exam-tip fade-in">
+                         <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Recognize India's key achievements: <strong>Zinc distillation</strong>, <strong>Wootz steel</strong>, <strong>Delhi Pillar</strong>, <strong>Lost Wax casting</strong>, sophisticated surgery (<strong>Sushruta/rhinoplasty</strong>). Know important sites/texts : <strong>IVC</strong>, <strong>Arthashastra</strong>, <strong>Kallanai Dam</strong>, <strong>Zawar mines</strong>, <strong>Ajanta</strong>. Understand the general reasons cited for the decline of indigenous S&T.</p>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Module 7 -->
+            <section id="module7">
+                 <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-city"></i> Module 7: Town Planning and Public Administration <i class="fas fa-chevron-right"></i></h2>
+                <div class="module-content collapsed">
+                   <!-- Content as before -->
+                    <h3 class="fade-in"><i class="fas fa-map-marked-alt"></i>Perspective of Arthashastra on Town Planning:</h3>
+                    <ul class="fade-in">
+                        <li>Kautilya's text provides a detailed model for a <strong>Durga</strong> (fortified capital).</li>
+                        <li>Emphasizes strategic location, strong fortifications (multiple moats, ramparts).</li>
+                        <li>Advocates for planned <strong>zoning</strong>: specific areas for royalty, ministers, different social classes (<strong>Varnas</strong>), merchants, artisans, markets, hospitals, military, even cremation grounds (outside walls).</li>
+                        <li>Details <strong>road network</strong> design (major royal roads, smaller streets) and <strong>gate placement</strong> for security and controlled access.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-drafting-compass"></i>Vastu Shastra – The Science of Architecture:</h3>
+                    <ul class="fade-in">
+                         <li>Holistic system aiming for harmony between humans, built structures, and the natural/cosmic environment.</li>
+                         <li>Based on principles like alignment with <strong>Panchamahabhutas</strong> (5 elements), directional influences, energy flow.</li>
+                         <li><strong>Vastu Purusha Mandala:</strong> Key planning tool, a symbolic grid representing the site's energy, used to determine layout and placement. <strong>Brahmasthana</strong> is the vital central point.</li>
+                         <li><strong>Eight Limbs of Vastu (Ashtanga Vastu):</strong> Covers the entire process:
+                             <ol>
+                                <li>Site Selection & Testing (Bhumi)</li>
+                                <li>Planning & Design using Mandala (Padavinyasa)</li>
+                                <li>Material Selection (Dravya)</li>
+                                <li>Structural Engineering</li>
+                                <li>Carpentry & Joinery</li>
+                                <li>Sculpture & Iconography</li>
+                                <li>Painting & Decoration (Alankara)</li>
+                                <li>Auspicious Timing & Rituals</li>
+                            </ol>
+                         </li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-road"></i>Town Planning (based on Vastu/Shilpa Shastras):</h3>
+                    <p class="fade-in">Texts like <strong>Manasara</strong> and <strong>Narada Shilpa Shastra</strong> classify towns/villages by size, function, and layout patterns (e.g., Dandaka, Nandyavarta, Padmaka, Swastika, Karmuka, Sarvatobhadra, Chaturmukha). Shows diversity in urban design.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-place-of-worship"></i>Temples in India:</h3>
+                    <ul class="fade-in">
+                        <li>Evolved from rock-cut caves to magnificent structural marvels.</li>
+                        <li>Represent a pinnacle of architectural skill, engineering, artistry, and integration of <strong>Vastu/Shilpa</strong> principles.</li>
+                        <li>Two major styles: <strong>Nagara</strong> (North - curvilinear Shikhara) and <strong>Dravida</strong> (South - pyramidal Vimana, often with Gopurams).</li>
+                        <li><strong>Key Components: Garbhagriha</strong> (sanctum with main deity), <strong>Mandapas</strong> (halls for assembly/rituals), <strong>Antarala</strong> (vestibule), <strong>Shikhara/Vimana</strong> (tower), <strong>Pradakshina Patha</strong> (circumambulatory path).</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-paint-brush"></i>Iconography (Murti Shilpa / Pratima Lakshana):</h3>
+                    <ul class="fade-in">
+                        <li>The art and science of creating sacred images (<strong>Murtis</strong>).</li>
+                        <li>Highly codified, following strict rules of proportion (<strong>Talamana</strong>) and symbolism to accurately represent divine forms and attributes. Not just artistic expression, but a sacred science.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-crown"></i>Introduction to Raja Dharma:</h3>
+                     <ul class="fade-in">
+                        <li>The <strong>Dharma</strong> (duty, righteousness, law) pertaining to the <strong>Raja</strong> (king or ruler).</li>
+                        <li>Outlines the responsibilities, ethics, and principles of good governance.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-landmark"></i>Arthashastra: Historical Perspective:</h3>
+                    <ul class="fade-in">
+                        <li>Attributed to <strong>Kautilya (Chanakya)</strong>, advisor to Chandragupta Maurya (c. 300 BCE).</li>
+                        <li>A pragmatic and comprehensive treatise on statecraft, covering administration, law, economics, foreign policy, espionage, military strategy. Rediscovered in 1905.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-chess-rook"></i>Elements of a Kautilyan State (Saptanga Theory - Seven Limbs):</h3>
+                    <ol class="fade-in">
+                         <li><strong>Swami:</strong> The Sovereign/King (leader, upholder of Dharma).</li>
+                         <li><strong>Amatya:</strong> Ministers/Officials (administration, counsel).</li>
+                         <li><strong>Janapada:</strong> Territory and People (the resource base, citizenry).</li>
+                         <li><strong>Durga:</strong> Fortified Capital/Fort (defense, administrative center).</li>
+                         <li><strong>Kosha:</strong> Treasury (economic strength, finances).</li>
+                         <li><strong>Danda:</strong> Army and Justice System (power of enforcement, security, law).</li>
+                         <li><strong>Mitra:</strong> Allies/Friendly States (foreign relations, strategic support).</li>
+                    </ol>
+                    <p class="fade-in">These limbs are interdependent; the health of the state depends on all seven being strong.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-sitemap"></i>The Administrative Setup:</h3>
+                    <p class="fade-in">Arthashastra describes a hierarchical and specialized bureaucracy with clear roles and responsibilities, including systems for revenue collection, law enforcement, infrastructure management, espionage.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-lightbulb"></i>Relevance of Arthashastra:</h3>
+                    <p class="fade-in">Though ancient, its principles on strategic thinking, economic management, importance of internal stability, and the nature of power still resonate and are studied in political science and management.</p>
+
+                     <h3 class="fade-in"><i class="fas fa-book-open"></i>Public Administration in Epics:</h3>
+                     <p class="fade-in"><strong>Ramayana</strong> (Rama Rajya ideal, Kachchit Sarga questioning Bharata) and <strong>Mahabharata</strong> (Shanti Parva advice from Bhishma) also contain significant discussions on kingship, duties, ethics, and governance.</p>
+
+                    <div class="exam-tip fade-in">
+                         <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Know the purpose and key features of planning described in <strong>Arthashastra</strong> (zoning, roads, gates). Understand <strong>Vastu Shastra</strong> basics (harmony, elements, Mandala, 8 limbs). Recognize key temple components and the <strong>Nagara/Dravida</strong> distinction. Memorize the <strong>Saptanga</strong> (7 limbs) of the state. Associate <strong>Kautilya</strong> with <strong>Arthashastra</strong> and <strong>Raja Dharma</strong> with the king's duties.</p>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Module 8 -->
+            <section id="module8">
+                 <!-- Structure: Icon, Text, Chevron Icon -->
+                <h2 class="module-toggle"><i class="fas fa-heartbeat"></i> Module 8: Health, Wellness, and Psychology <i class="fas fa-chevron-right"></i></h2>
+                 <div class="module-content collapsed">
+                    <!-- Content as before -->
+                    <h3 class="fade-in"><i class="fas fa-spa"></i>Distinctive Thoughts on Health & Wellness in IKS:</h3>
+                    <ul class="fade-in">
+                         <li><strong>Holistic:</strong> Views health as balance between body, mind, senses, and spirit, integrated with nature and the cosmos. Not just absence of disease.</li>
+                         <li><strong>Individualized:</strong> Emphasizes unique constitution (<strong>Prakriti</strong>) based on <strong>Doshas</strong>. Treatment and lifestyle advice are tailored.</li>
+                         <li><strong>Preventive Focus:</strong> Strong emphasis on maintaining health through lifestyle (<strong>Dinacharya, Ritucharya</strong>), diet, and mental well-being to prevent illness.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-leaf"></i>Ayurveda: Approach to Health:</h3>
+                    <ul class="fade-in">
+                        <li>"Science of Life" (<strong>Ayur</strong>=life, <strong>Veda</strong>=knowledge). A comprehensive system of medicine and wellness.</li>
+                        <li>Aims to maintain the health of the healthy and cure the disease of the sick.</li>
+                        <li><strong>Definition of Health (Svastha):</strong> As per Sushruta Samita: Balanced <strong>Doshas</strong>, balanced <strong>Agni</strong>, balanced <strong>Dhatus</strong>, proper elimination of <strong>Malas</strong> (wastes), and a blissful state of <strong>Atma</strong> (soul), <strong>Indriya</strong> (senses), and <strong>Manas</strong> (mind). It's a state of equilibrium.</li>
+                    </ul>
+
+                    <h4 class="fade-in">Tri-doshas:</h4>
+                    <p class="fade-in">Three fundamental bio-energetic principles governing physiological and psychological functions. Everyone has all three, but in a unique combination (<strong>Prakriti</strong>). Imbalance (<strong>Vikriti</strong>) leads to disease.</p>
+                    <ul class="fade-in">
+                        <li><strong>Vata:</strong> Associated with Air & Ether elements. Governs movement, circulation, breath, nervous system. Qualities: dry, light, cold, mobile.</li>
+                        <li><strong>Pita:</strong> Associated with Fire & Water elements. Governs digestion, metabolism, temperature, transformation. Qualities: hot, sharp, oily, liquid.</li>
+                        <li><strong>Kapha:</strong> Associated with Water & Earth elements. Governs structure, stability, lubrication, immunity. Qualities: heavy, slow, cool, oily, stable.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-fire"></i>Role of Agni in Health:</h3>
+                     <ul class="fade-in">
+                         <li>Digestive and metabolic "fire." Responsible for transforming food into usable energy and tissues.</li>
+                         <li>Considered central to health. Balanced <strong>Agni</strong> ensures good digestion, assimilation, and elimination of toxins. Imbalanced Agni (Manda, Tikshna, Vishama) leads to <strong>Ama</strong> (toxin buildup), the root of many diseases.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-vials"></i>Sapta-dhatavah: Seven Tissues:</h3>
+                    <p class="fade-in">Tissues formed sequentially through the action of <strong>Agni</strong> on nutrients:</p>
+                    <ol class="fade-in">
+                         <li><strong>Rasa</strong> (Plasma/Lymph)</li>
+                         <li><strong>Rakta</strong> (Blood)</li>
+                         <li><strong>Mamsa</strong> (Muscle)</li>
+                         <li><strong>Medas</strong> (Fat/Adipose)</li>
+                         <li><strong>Asthi</strong> (Bone)</li>
+                         <li><strong>Majja</strong> (Marrow/Nerve)</li>
+                         <li><strong>Shukra/Artava</strong> (Reproductive tissue)</li>
+                    </ol>
+                    <p class="fade-in">The essence of healthy Dhatus is <strong>Ojas</strong>, vital energy linked to immunity and vitality.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-brain"></i>Psychological Aspects of Health:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Mind (Manas)</strong> is crucial. Mental imbalances (influenced by <strong>Gunas</strong>) can disturb <strong>Doshas</strong> and cause physical illness.</li>
+                        <li>Emotions like anger, greed, fear are recognized as contributing factors to disease.</li>
+                        <li><strong>Disease Management Elements:</strong> Focuses on identifying the root cause (imbalance of Doshas, Agni, Ama buildup), treating the individual (Prakriti/Vikriti), using herbs, diet, lifestyle changes, purification therapies (<strong>Panchakarma</strong>), and addressing mental/emotional factors.</li>
+                    </ul>
+
+                    <h3 class="fade-in"><i class="fas fa-calendar-day"></i>Dinacharya & Ritucharya:</h3>
+                    <p class="fade-in">Daily and seasonal routines designed to maintain <strong>Doshic</strong> balance according to natural cycles (time of day, seasons). Includes waking times, cleansing practices, exercise, meals, sleep. Key preventive strategies.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-bed"></i>Importance of Sleep (Nidra):</h3>
+                    <p class="fade-in">Considered one of the three pillars of health (along with diet and appropriate conduct). Essential for rejuvenation, repair, mental clarity. Lack of proper sleep disturbs Doshas, especially Vata.</p>
+
+                     <h3 class="fade-in"><i class="fas fa-utensils"></i>Food Intake & Drugs (Ahara & Aushadhi):</h3>
+                    <p class="fade-in">Diet (<strong>Ahara</strong>) is primary medicine. Food is classified by taste (<strong>Rasa</strong>), quality (<strong>Guna</strong>), potency (<strong>Virya</strong>), post-digestive effect (<strong>Vipaka</strong>). Herbs/medicines (<strong>Aushadhi</strong>) are used to correct imbalances.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-balance-scale-left"></i>Approach to Healthy Life:</h3>
+                    <p class="fade-in">Balance, moderation, living in tune with one's <strong>Prakriti</strong> and natural rhythms, managing stress, cultivating positive mental states.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-comment-dots"></i>Indian Approach to Psychology:</h3>
+                     <ul class="fade-in">
+                        <li>Deeply integrated with philosophy and spirituality. Focuses on consciousness (<strong>Chit</strong>) as fundamental.</li>
+                        <li>Explores the nature of the mind (<strong>Manas, Buddhi, Ahankara, Chitta</strong>), its modifications (<strong>Vrittis</strong>), and the path to mental clarity and self-realization.</li>
+                        <li><strong>Basic Tenets:</strong> Mind-body interconnectedness, influence of <strong>Gunas</strong> on mental states, importance of self-awareness, practices like Yoga and Meditation for mental discipline and insight.</li>
+                    </ul>
+
+                    <h4 class="fade-in">The Triguna System & Mind:</h4>
+                    <p class="fade-in"><strong>Sattva</strong> (clarity, peace), <strong>Rajas</strong> (activity, passion, agitation), <strong>Tamas</strong> (inertia, dullness, delusion) directly influence mental states and behavior. Aim is often to cultivate Sattva.</p>
+
+                    <h4 class="fade-in">Holistic Picture of the Individual:</h4>
+                    <p class="fade-in">Views the person as layers or sheaths (<strong>Koshas</strong>) covering the true Self (<strong>Atman</strong>).</p>
+
+                    <h4 class="fade-in">Prakriti & Evolution (Sankhya Link):</h4>
+                    <p class="fade-in">The mind and senses are seen as evolutes of <strong>Prakriti</strong>, influenced by the <strong>Gunas</strong>. Understanding this helps understand individual tendencies.</p>
+
+                    <h3 class="fade-in"><i class="fas fa-layer-group"></i>The Pancha-kosha Framework (from Taittiriya Upanishad):</h3>
+                    <p class="fade-in">Five layers or sheaths covering the <strong>Atman</strong>:</p>
+                    <ol class="fade-in">
+                         <li><strong>Annamaya Kosha</strong> (Food/Physical Sheath)</li>
+                         <li><strong>Pranamaya Kosha</strong> (Vital Energy/Breath Sheath)</li>
+                         <li><strong>Manomaya Kosha</strong> (Mental/Emotional Sheath)</li>
+                         <li><strong>Vijnanamaya Kosha</strong> (Intellectual/Wisdom Sheath)</li>
+                         <li><strong>Anandamaya Kosha</strong> (Bliss Sheath)</li>
+                    </ol>
+
+                    <h3 class="fade-in"><i class="fas fa-adjust"></i>The Four States (Avasthas) of Consciousness:</h3>
+                    <ul class="fade-in">
+                        <li><strong>Jagrat</strong> (Waking state) - associated with gross body/external world.</li>
+                        <li><strong>Svapna</strong> (Dreaming state) - associated with subtle body/internal world.</li>
+                        <li><strong>Sushupti</strong> (Deep Sleep state) - associated with causal body, state of undifferentiated peace but still veiled by ignorance.</li>
+                        <li><strong>Turiya</strong> (The Fourth) - not a state that comes and goes, but the underlying pure consciousness (<strong>Atman/Brahman</strong>) that witnesses the other three states. The goal of realization.</li>
+                    </ul>
+
+                    <div class="exam-tip fade-in">
+                        <p><i class="fas fa-star"></i><strong>Exam Tip:</strong> Know the Ayurvedic definition of health (<strong>Svastha</strong>) and its components. Memorize the <strong>Tridoshas</strong> (Vata, Pitta, Kapha) and their basic functions/qualities. Understand the importance of <strong>Agni</strong> and <strong>Ama</strong>. List the <strong>Sapta Dhatus</strong> and <strong>Ojas</strong>. Recognize the <strong>Trigunas</strong> (Sattva, Rajas, Tamas) and their mental characteristics. Be familiar with the <strong>Pancha Koshas</strong> and the <strong>Four Avasthas</strong> of consciousness (especially <strong>Turiya</strong> as the underlying reality).</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+             <p>Happy Studying! Focus on understanding the connections. Good luck with your MCQs!</p>
+        </footer>
+
+    </div> <!-- end container -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- Fade-in Animation on Scroll ---
+            const observerOptions = {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Optional: stop observing once visible
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+            // Observe all elements with the fade-in class
+            const elementsToFade = document.querySelectorAll('.fade-in');
+            elementsToFade.forEach(el => observer.observe(el));
+
+
+             // --- Collapsible Sections ---
+            const moduleToggles = document.querySelectorAll('.module-toggle');
+
+            moduleToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const content = this.nextElementSibling; // Get the .module-content div
+                    // Find the chevron icon specifically
+                    const icon = this.querySelector('.fas.fa-chevron-down, .fas.fa-chevron-right');
+
+                    content.classList.toggle('collapsed');
+                    this.classList.toggle('collapsed'); // Add/remove collapsed class on h2 as well if needed for styling
+
+                    // Toggle icon
+                    if (icon) { // Check if icon exists before trying to change classes
+                        if (content.classList.contains('collapsed')) {
+                            icon.classList.remove('fa-chevron-down');
+                            icon.classList.add('fa-chevron-right');
+                        } else {
+                            icon.classList.remove('fa-chevron-right');
+                            icon.classList.add('fa-chevron-down');
+
+                            // Optional: Trigger fade-in for newly revealed content
+                            // We need a slight delay for the max-height transition to start
+                            setTimeout(() => {
+                                const newlyVisibleElements = content.querySelectorAll('.fade-in:not(.visible)');
+                                newlyVisibleElements.forEach(el => {
+                                    // Re-check intersection after expand animation starts
+                                    const bounding = el.getBoundingClientRect();
+                                    if (bounding.top < window.innerHeight && bounding.bottom >= 0) {
+                                         observer.observe(el)
+                                    }
+                                });
+                            }, 100); // Adjust delay as needed (ms)
+                        }
+                    }
+                });
+            });
+
+            // Initialize first module as open, rest closed
+            const allModuleContents = document.querySelectorAll('.module-content');
+            allModuleContents.forEach((content, index) => {
+                const toggle = content.previousElementSibling; // Get the h2
+                const icon = toggle.querySelector('.fas.fa-chevron-down, .fas.fa-chevron-right'); // Target only chevron
+
+                if (icon) { // Check if icon exists
+                     if (index !== 0) { // Collapse all except the first
+                        content.classList.add('collapsed');
+                        toggle.classList.add('collapsed');
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-right');
+                    } else { // Ensure first is open
+                        content.classList.remove('collapsed');
+                        toggle.classList.remove('collapsed');
+                        icon.classList.remove('fa-chevron-right');
+                        icon.classList.add('fa-chevron-down');
+                        // Trigger fade-in for initial content
+                        const initialVisibleElements = content.querySelectorAll('.fade-in:not(.visible)');
+                        initialVisibleElements.forEach(el => observer.observe(el));
+                    }
+                }
+            });
+
+        }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>
